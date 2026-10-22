@@ -261,8 +261,6 @@ public partial class ProfileService
         return profile;
     }
 
-    public static bool HasMicrosoftProfile => Profiles.Any(p => p.ProfileType == ProfileType.Microsoft);
-
     private static async Task<IAuthenticateProvider> _CreateProviderAsync(ProfileType profileType,
         AuthenticationRequest request, McProfile? existing, CancellationToken token)
     {

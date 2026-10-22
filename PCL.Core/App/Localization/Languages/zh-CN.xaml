@@ -1602,7 +1602,6 @@
     <sys:String x:Key="Launch.Account.Profile.Create">新建档案</sys:String>
     <sys:String x:Key="Launch.Account.Profile.Create.SelectAuthType.Title">新建档案 - 选择验证类型</sys:String>
     <sys:String x:Key="Launch.Account.Profile.CreateAndSelectHint">新建并选择一个档案以启动游戏</sys:String>
-    <sys:String x:Key="Launch.Account.Profile.RequireMicrosoftHint">需要先进行一次正版验证才能使用其他验证方式</sys:String>
     <sys:String x:Key="Launch.Account.Profile.Created">档案新建成功！</sys:String>
     <sys:String x:Key="Launch.Account.Profile.Delete">删除档案</sys:String>
     <sys:String x:Key="Launch.Account.Profile.DeleteConfirm.Message">你正在选择删除此档案，该操作无法撤销。&#xA;确定继续？</sys:String>
@@ -2190,23 +2189,13 @@
 
     <!-- Minecraft.Launch -->
 
-    <sys:String x:Key="Minecraft.Launch.AccountVerification.Back">返回</sys:String>
-    <sys:String x:Key="Minecraft.Launch.AccountVerification.Demo">试玩</sys:String>
-    <sys:String x:Key="Minecraft.Launch.AccountVerification.Message">你必须先登录正版账号才能启动游戏！</sys:String>
-    <sys:String x:Key="Minecraft.Launch.AccountVerification.Purchase">购买正版</sys:String>
-    <sys:String x:Key="Minecraft.Launch.AccountVerification.Title">正版验证</sys:String>
     <sys:String x:Key="Minecraft.Launch.Cancelled">已取消启动！</sys:String>
-    <sys:String x:Key="Minecraft.Launch.DemoMode">游戏将以试玩模式启动！</sys:String>
     <sys:String x:Key="Minecraft.Launch.Donate.Decline">但是我拒绝</sys:String>
     <sys:String x:Key="Minecraft.Launch.Donate.Message">PCL CE 已经为你启动了 {0} 次游戏啦！&#xA;如果 PCL CE 还算好用的话，也许可以考虑赞助一下 PCL 原作者……&#xA;如果没有大家的支持，PCL 很难在免费、无任何广告的情况下维持数年的更新（磕头）……！</sys:String>
     <sys:String x:Key="Minecraft.Launch.Donate.Support">支持一下！</sys:String>
     <sys:String x:Key="Minecraft.Launch.Donate.Title">{0} 次启动！</sys:String>
     <sys:String x:Key="Minecraft.Launch.ExportScript.Cancelled">已取消导出启动脚本！</sys:String>
     <sys:String x:Key="Minecraft.Launch.ExportScript.Success">导出启动脚本成功！</sys:String>
-    <sys:String x:Key="Minecraft.Launch.PurchaseHint.Later">下次一定</sys:String>
-    <sys:String x:Key="Minecraft.Launch.PurchaseHint.Message">看起来你似乎没买正版...&#xA;如果觉得 Minecraft 还不错，可以购买正版支持一下，毕竟开发游戏也真的很不容易...不要一直白嫖啦。&#xA;&#xA;在验证一个正版账号之后，就不会出现这个提示了！</sys:String>
-    <sys:String x:Key="Minecraft.Launch.PurchaseHint.Purchase">支持正版游戏！</sys:String>
-    <sys:String x:Key="Minecraft.Launch.PurchaseHint.Title">考虑一下正版？</sys:String>
     <sys:String x:Key="Minecraft.Launch.Success">{0} 启动成功！</sys:String>
 
     <!-- Minecraft.Launch.Error -->

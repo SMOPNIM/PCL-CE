@@ -1557,7 +1557,6 @@
     <sys:String x:Key="Launch.Account.Profile.Create">建立檔案</sys:String>
     <sys:String x:Key="Launch.Account.Profile.Create.SelectAuthType.Title">建立檔案 - 選擇驗證型別</sys:String>
     <sys:String x:Key="Launch.Account.Profile.CreateAndSelectHint">建立並選擇一個檔案以啟動遊戲</sys:String>
-    <sys:String x:Key="Launch.Account.Profile.RequireMicrosoftHint">需要先進行一次微軟驗證才能使用其他驗證方式</sys:String>
     <sys:String x:Key="Launch.Account.Profile.Created">檔案建立成功！</sys:String>
     <sys:String x:Key="Launch.Account.Profile.Delete">刪除檔案</sys:String>
     <sys:String x:Key="Launch.Account.Profile.DeleteConfirm.Message">你正在選擇刪除此檔案，該操作無法復原。&#xA;確定繼續？</sys:String>
@@ -2142,23 +2141,13 @@
 
     <!-- Minecraft.Launch -->
 
-    <sys:String x:Key="Minecraft.Launch.AccountVerification.Back">返回</sys:String>
-    <sys:String x:Key="Minecraft.Launch.AccountVerification.Demo">試玩</sys:String>
-    <sys:String x:Key="Minecraft.Launch.AccountVerification.Message">你必須先登入微軟帳戶才能啟動遊戲！</sys:String>
-    <sys:String x:Key="Minecraft.Launch.AccountVerification.Purchase">購買游戲</sys:String>
-    <sys:String x:Key="Minecraft.Launch.AccountVerification.Title">微軟驗證</sys:String>
     <sys:String x:Key="Minecraft.Launch.Cancelled">已取消啟動！</sys:String>
-    <sys:String x:Key="Minecraft.Launch.DemoMode">遊戲將以試玩模式啟動！</sys:String>
     <sys:String x:Key="Minecraft.Launch.Donate.Decline">但是我拒絕</sys:String>
     <sys:String x:Key="Minecraft.Launch.Donate.Message">PCL CE 已經為你啟動了 {0} 次遊戲啦！&#xA;如果 PCL CE 還算好用的話，也許可以考慮贊助一下 PCL 原作者……&#xA;如果沒有大家的支援，PCL 很難在免費、無任何廣告的情況下維持數年的更新（磕頭）……！</sys:String>
     <sys:String x:Key="Minecraft.Launch.Donate.Support">支援一下！</sys:String>
     <sys:String x:Key="Minecraft.Launch.Donate.Title">{0} 次啟動！</sys:String>
     <sys:String x:Key="Minecraft.Launch.ExportScript.Cancelled">已取消匯出啟動指令碼！</sys:String>
     <sys:String x:Key="Minecraft.Launch.ExportScript.Success">匯出啟動指令碼成功！</sys:String>
-    <sys:String x:Key="Minecraft.Launch.PurchaseHint.Later">下次一定</sys:String>
-    <sys:String x:Key="Minecraft.Launch.PurchaseHint.Message">看起來你似乎沒買游戲...&#xA;如果覺得 Minecraft 還不錯，可以購買支援一下，畢竟開發遊戲也真的很不容易...不要一直接嫖啦。&#xA;&#xA;在驗證一個微軟帳戶後，就不會出現這個提示了！</sys:String>
-    <sys:String x:Key="Minecraft.Launch.PurchaseHint.Purchase">支援！</sys:String>
-    <sys:String x:Key="Minecraft.Launch.PurchaseHint.Title">考慮購買一下游戲？</sys:String>
     <sys:String x:Key="Minecraft.Launch.Success">{0} 啟動成功！</sys:String>
 
     <!-- Minecraft.Launch.Error -->
