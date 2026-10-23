@@ -265,14 +265,6 @@ public partial class FormMain
                             }
                     }
 
-                // 遥测提示
-                if (Config.System.TelemetryConfig.IsDefault())
-                {
-                    var selection = ModMain.MyMsgBox(
-                                Lang.Text("Main.Telemetry.Message"),
-                                Lang.Text("Main.Telemetry.Title"), Lang.Text("Common.Action.Agree"), Lang.Text("Common.Action.Decline"));
-                    Config.System.TelemetryConfig.SetValue(selection == 1, forceNewValue: true);
-                }
                 // 启动加载器池
                 try
                 {
