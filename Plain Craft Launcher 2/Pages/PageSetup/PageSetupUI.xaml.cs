@@ -30,6 +30,9 @@ public partial class PageSetupUI
 
     // 经典主题选择器
 
+    private const int ThemeSystemCe = 0;
+    private const int ThemeSystemClassic = 1;
+
     private readonly Dictionary<int, MyRadioBox> _classicThemeRadios = [];
     private MyRadioBox? _classicThemeNoneRadio;
     private bool _classicThemeUiInitialized;
@@ -128,17 +131,15 @@ public partial class PageSetupUI
         _suppressClassicThemeUi = true;
         try
         {
-            CheckUseClassicTheme.Checked = classicEnabled;
+            ComboThemeSystem.SelectedIndex = classicEnabled ? ThemeSystemClassic : ThemeSystemCe;
         }
         finally
         {
             _suppressClassicThemeUi = false;
         }
 
-        HintClassicThemeLight.Visibility = classicEnabled ? Visibility.Visible : Visibility.Collapsed;
-        ComboDarkMode.IsEnabled = !classicEnabled;
-        ComboLightColor.IsEnabled = !classicEnabled;
-        ComboDarkColor.IsEnabled = !classicEnabled;
+        PanModernTheme.Visibility = classicEnabled ? Visibility.Collapsed : Visibility.Visible;
+        PanClassicTheme.Visibility = classicEnabled ? Visibility.Visible : Visibility.Collapsed;
         PanClassicCustomSliders.Visibility =
             classicEnabled && theme.ThemeSelected == 14 ? Visibility.Visible : Visibility.Collapsed;
     }
@@ -160,14 +161,15 @@ public partial class PageSetupUI
         ClassicThemeSyncState();
     }
 
-    private void CheckUseClassicTheme_Change(object senderRaw, bool user)
+    private void ThemeSystem_Change(object senderRaw, SelectionChangedEventArgs e)
     {
         if (_suppressClassicThemeUi || ModAnimation.AniExitsAnyControl()) return;
+        if (ComboThemeSystem.SelectedIndex < 0) return;
 
-        var enabled = ((MyCheckBox)senderRaw).Checked == true;
+        var enabled = ComboThemeSystem.SelectedIndex == ThemeSystemClassic;
         var theme = Config.Preference.Theme;
 
-        // 42 号主题没有选择器，关闭经典模式前先退回默认主题
+        // 42 号主题没有选择器，切回 CE 前先退回默认主题
         if (!enabled && theme.ThemeSelected == 42)
         {
             theme.ThemeSelected = 0;
@@ -175,6 +177,7 @@ public partial class PageSetupUI
         }
 
         theme.UseClassicTheme = enabled;
+        ClassicThemeSyncSelection();
         ClassicThemeSyncState();
     }
 
@@ -193,8 +196,6 @@ public partial class PageSetupUI
         isLoaded = true;
 
         SliderLoad();
-
-        PanLauncherHide.Visibility = Visibility.Visible;
     }
 
     public void Reload()
@@ -819,12 +820,6 @@ public partial class PageSetupUI
         var sender = (MyComboBox)senderRaw;
         SetByTag(sender.Tag?.ToString(), sender.SelectedIndex);
         ThemeManager.ThemeRefresh();
-    }
-
-    // 赞助
-    private void BtnLauncherDonate_Click(object sender, MouseButtonEventArgs e)
-    {
-        ModBase.OpenWebsite("https://afdian.com/a/LTCat");
     }
 
     // 滑动条

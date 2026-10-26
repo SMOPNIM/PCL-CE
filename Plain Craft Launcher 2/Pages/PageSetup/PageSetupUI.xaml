@@ -32,38 +32,98 @@
                                             Tag="UiLauncherTransparent" MaxValue="600" ValueByKey="10" Grid.Column="1"
                                             Change="SliderChange" />
                         </Grid>
-                        <Border Background="{DynamicResource ColorBrushToolTip}" Margin="0,5,0,12" CornerRadius="4"
-                                Name="PanLauncherHide" Visibility="Collapsed">
-                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
-                                <TextBlock Text="{DynamicResource Setup.Ui.Basic.BlueHint}" FontSize="13" Margin="0,0,0,0"
-                                           TextWrapping="Wrap" />
-                                <local:MyButton Height="35" x:Name="BtnLauncherDonate" MinWidth="140" Text="{DynamicResource Setup.Ui.Basic.GetSnapshot}"
-                                                Padding="13,0" HorizontalAlignment="Center" Margin="0,9,0,0"
-                                                ColorType="Highlight" Click="BtnLauncherDonate_Click" />
-                            </StackPanel>
-                        </Border>
-                        <Grid Height="28" Margin="0,0,0,7">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" SharedSizeGroup="Name1" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="92" SharedSizeGroup="SubName" />
-                                <ColumnDefinition />
-                                <ColumnDefinition SharedSizeGroup="SubName" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{DynamicResource Setup.Ui.Theme.Title}" />
-                            <local:MyComboBox Grid.Column="1" x:Name="ComboDarkMode" Tag="UiDarkMode"
-                                              SelectionChanged="ComboChange">
-                                <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.Light}" />
-                                <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.Dark}" />
-                                <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.FollowSystem}" /> <!-- default -->
-                            </local:MyComboBox>
-                            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{DynamicResource Setup.Ui.Theme.LightColor}"/>
-                            <local:MyComboBox Grid.Column="3" x:Name="ComboLightColor" Tag="UiLightColor" ItemsSource="{Binding ThemeColors}" SelectionChanged="ThemeColor_Change"/>
-                            <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{DynamicResource Setup.Ui.Theme.DarkColor}"/>
-                            <local:MyComboBox Grid.Column="5" x:Name="ComboDarkColor" Tag="UiDarkColor" ItemsSource="{Binding ThemeColors}" SelectionChanged="ThemeColor_Change"/>
+                        <StackPanel x:Name="PanThemeConfig" Grid.IsSharedSizeScope="True">
+                            <Grid Height="28" Margin="0,0,0,7">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Name1" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="92" SharedSizeGroup="SubName" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition SharedSizeGroup="SubName" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{DynamicResource Setup.Ui.Theme.System}" />
+                                <local:MyComboBox Grid.Column="1" x:Name="ComboThemeSystem" SelectionChanged="ThemeSystem_Change">
+                                    <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.System.CE}" />
+                                    <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.System.Classic}" />
+                                </local:MyComboBox>
+                            </Grid>
+                            <Grid x:Name="PanModernTheme" Height="28" Margin="0,0,0,7">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Name1" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="92" SharedSizeGroup="SubName" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition SharedSizeGroup="SubName" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{DynamicResource Setup.Ui.Theme.Mode}" />
+                                <local:MyComboBox Grid.Column="1" x:Name="ComboDarkMode" Tag="UiDarkMode"
+                                                  SelectionChanged="ComboChange">
+                                    <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.Light}" />
+                                    <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.Dark}" />
+                                    <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.FollowSystem}" /> <!-- default -->
+                                </local:MyComboBox>
+                                <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{DynamicResource Setup.Ui.Theme.LightColor}"/>
+                                <local:MyComboBox Grid.Column="3" x:Name="ComboLightColor" Tag="UiLightColor" ItemsSource="{Binding ThemeColors}" SelectionChanged="ThemeColor_Change"/>
+                                <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{DynamicResource Setup.Ui.Theme.DarkColor}"/>
+                                <local:MyComboBox Grid.Column="5" x:Name="ComboDarkColor" Tag="UiDarkColor" ItemsSource="{Binding ThemeColors}" SelectionChanged="ThemeColor_Change"/>
 
-                        </Grid>
+                            </Grid>
+                            <StackPanel x:Name="PanClassicTheme" Visibility="Collapsed" Margin="0,0,0,7">
+                                <local:MyHint x:Name="HintClassicThemeLight" Text="{DynamicResource Setup.Ui.ClassicTheme.LightHint}"
+                                              Theme="Blue" Margin="0,0,0,10" />
+                                <Grid x:Name="PanClassicThemeGrid" Height="90" Margin="0,0,0,7">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Name1" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"
+                                               Text="{DynamicResource Setup.Ui.ClassicTheme.Row.Theme}" Margin="0,0,20,0" />
+                                    <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                               Text="{DynamicResource Setup.Ui.ClassicTheme.Row.Hidden}" Margin="0,0,20,0" />
+                                </Grid>
+                                <Grid x:Name="PanClassicCustomSliders" Visibility="Collapsed" Margin="0,8,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Name1" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="24" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                               Text="{DynamicResource Setup.Ui.ClassicTheme.Hue}" />
+                                    <local:MySlider Grid.Row="0" Grid.Column="1" x:Name="SliderClassicThemeHue"
+                                                    Tag="UiLauncherHue" MaxValue="360" ValueByKey="10" Change="SliderChange" />
+                                    <TextBlock Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                               Text="{DynamicResource Setup.Ui.ClassicTheme.Sat}" Margin="12,0,12,0" />
+                                    <local:MySlider Grid.Row="0" Grid.Column="4" x:Name="SliderClassicThemeSat"
+                                                    Tag="UiLauncherSat" MaxValue="100" ValueByKey="5" Change="SliderChange" />
+                                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                               Text="{DynamicResource Setup.Ui.ClassicTheme.Delta}" />
+                                    <local:MySlider Grid.Row="2" Grid.Column="1" x:Name="SliderClassicThemeDelta"
+                                                    Tag="UiLauncherDelta" MaxValue="180" ValueByKey="5" Change="SliderChange" />
+                                    <TextBlock Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                               Text="{DynamicResource Setup.Ui.ClassicTheme.Light}" Margin="12,0,12,0" />
+                                    <local:MySlider Grid.Row="2" Grid.Column="4" x:Name="SliderClassicThemeLight"
+                                                    Tag="UiLauncherLight" MaxValue="40" ValueByKey="5" Change="SliderChange" />
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
                         <local:MyCheckBox Text="{DynamicResource Setup.Ui.Basic.ShowLogo}" Margin="-1,0,0,7" Height="22"
                                           x:Name="CheckLauncherLogo" Tag="UiLauncherLogo" Change="CheckBoxChange" />
                         <local:MyCheckBox Text="{DynamicResource Setup.Ui.Basic.LockWindow}" Margin="-1,0,0,7" Height="22" x:Name="CheckLockWindowSize"
@@ -113,64 +173,6 @@
                         </StackPanel>
                     </StackPanel>
                 </Grid>
-            </local:MyCard>
-            <local:MyCard x:Name="CardClassicTheme" Margin="0,0,0,15" Title="{DynamicResource Setup.Ui.ClassicTheme.Title}">
-                <StackPanel Margin="25,40,25,18" Grid.IsSharedSizeScope="True">
-                    <local:MyCheckBox x:Name="CheckUseClassicTheme" Text="{DynamicResource Setup.Ui.ClassicTheme.Use}"
-                                      Tag="UiUseClassicTheme" Change="CheckUseClassicTheme_Change"
-                                      Margin="-1,0,0,7" Height="22" />
-                    <local:MyHint x:Name="HintClassicThemeLight" Text="{DynamicResource Setup.Ui.ClassicTheme.LightHint}"
-                                  Theme="Blue" Margin="0,0,0,10" />
-                    <Grid x:Name="PanClassicThemeGrid" Height="90" Margin="0,0,0,7">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Name1" />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Text="{DynamicResource Setup.Ui.ClassicTheme.Row.Theme}" Margin="0,0,20,0" />
-                        <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Text="{DynamicResource Setup.Ui.ClassicTheme.Row.Hidden}" Margin="0,0,20,0" />
-                    </Grid>
-                    <Grid x:Name="PanClassicCustomSliders" Visibility="Collapsed" Margin="0,8,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Name1" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="24" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Text="{DynamicResource Setup.Ui.ClassicTheme.Hue}" />
-                        <local:MySlider Grid.Row="0" Grid.Column="1" x:Name="SliderClassicThemeHue"
-                                        Tag="UiLauncherHue" MaxValue="360" ValueByKey="10" Change="SliderChange" />
-                        <TextBlock Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Text="{DynamicResource Setup.Ui.ClassicTheme.Sat}" Margin="12,0,12,0" />
-                        <local:MySlider Grid.Row="0" Grid.Column="4" x:Name="SliderClassicThemeSat"
-                                        Tag="UiLauncherSat" MaxValue="100" ValueByKey="5" Change="SliderChange" />
-                        <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Text="{DynamicResource Setup.Ui.ClassicTheme.Delta}" />
-                        <local:MySlider Grid.Row="2" Grid.Column="1" x:Name="SliderClassicThemeDelta"
-                                        Tag="UiLauncherDelta" MaxValue="180" ValueByKey="5" Change="SliderChange" />
-                        <TextBlock Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Text="{DynamicResource Setup.Ui.ClassicTheme.Light}" Margin="12,0,12,0" />
-                        <local:MySlider Grid.Row="2" Grid.Column="4" x:Name="SliderClassicThemeLight"
-                                        Tag="UiLauncherLight" MaxValue="40" ValueByKey="5" Change="SliderChange" />
-                    </Grid>
-                </StackPanel>
             </local:MyCard>
             <local:MyCard x:Name="CardFont" Margin="0,0,0,15" Title="{DynamicResource Setup.Ui.Font.Title}">
                 <Grid Margin="25,40,25,15">
