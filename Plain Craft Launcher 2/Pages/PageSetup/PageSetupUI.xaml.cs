@@ -5,8 +5,10 @@ using System.Windows.Input;
 using PCL.Core.App;
 using PCL.Core.App.Configuration;
 using PCL.Core.UI;
+using PCL.Core.UI.Theme;
 using PCL.Core.Utils;
 using PCL.Core.App.Localization;
+using PCL.Core.Utils.Secret;
 
 namespace PCL;
 
@@ -21,8 +23,159 @@ public partial class PageSetupUI
     public PageSetupUI()
     {
         InitializeComponent();
+        ClassicThemeInit();
         Loaded += PageSetupUI_Loaded;
         Loaded += (_, _) => HiddenRefresh();
+    }
+
+    // 经典主题选择器
+
+    private readonly Dictionary<int, MyRadioBox> _classicThemeRadios = [];
+    private MyRadioBox? _classicThemeNoneRadio;
+    private bool _classicThemeUiInitialized;
+    private bool _suppressClassicThemeUi;
+
+    private void ClassicThemeInit()
+    {
+        if (_classicThemeUiInitialized) return;
+        _classicThemeUiInitialized = true;
+
+        // 42 号主题没有可见单选按钮，用一个隐藏项承载“无选择”状态，
+        // 避免 MyRadioBox 在取消选中时自动选中第一个主题。
+        _classicThemeNoneRadio = new MyRadioBox
+        {
+            Visibility = Visibility.Collapsed,
+            IsEnabled = false,
+            Focusable = false
+        };
+        Grid.SetRow(_classicThemeNoneRadio, 0);
+        Grid.SetColumn(_classicThemeNoneRadio, 0);
+        PanClassicThemeGrid.Children.Add(_classicThemeNoneRadio);
+
+        foreach (var definition in PclThemeCatalog.Selectable)
+        {
+            var radio = new MyRadioBox
+            {
+                Tag = definition.Id
+            };
+            Grid.SetRow(radio, definition.SelectorRow!.Value);
+            Grid.SetColumn(radio, definition.SelectorColumn!.Value);
+            radio.Check += (_, _) => ClassicTheme_Check((int)radio.Tag);
+            PanClassicThemeGrid.Children.Add(radio);
+            _classicThemeRadios[definition.Id] = radio;
+        }
+    }
+
+    private void ClassicThemeReload()
+    {
+        var theme = Config.Preference.Theme;
+
+        // 语言切换后刷新名称与提示
+        foreach (var definition in PclThemeCatalog.Selectable)
+        {
+            if (!_classicThemeRadios.TryGetValue(definition.Id, out var radio)) continue;
+            radio.Text = Lang.Text(definition.NameKey);
+            if (definition.TooltipKey is { } tooltipKey)
+            {
+                radio.ToolTip = Lang.Text(tooltipKey).Replace("{identify}", Identify.LauncherId);
+                ToolTipService.SetShowOnDisabled(radio, true);
+            }
+            else
+            {
+                radio.ToolTip = null;
+            }
+        }
+
+        SliderClassicThemeHue.Value = theme.WindowHue;
+        SliderClassicThemeDelta.Value = theme.WindowDelta;
+        SliderClassicThemeSat.Value = theme.WindowSat;
+        SliderClassicThemeLight.Value = theme.WindowLight;
+
+        ClassicThemeSyncSelection();
+        ClassicThemeSyncState();
+    }
+
+    private void ClassicThemeSyncSelection()
+    {
+        var themeId = Config.Preference.Theme.ThemeSelected;
+        _suppressClassicThemeUi = true;
+        try
+        {
+            if (themeId == 42)
+            {
+                _classicThemeNoneRadio!.Checked = true;
+            }
+            else if (_classicThemeRadios.TryGetValue(themeId, out var radio))
+            {
+                radio.Checked = true;
+            }
+            else if (_classicThemeRadios.TryGetValue(0, out var fallback))
+            {
+                fallback.Checked = true;
+            }
+        }
+        finally
+        {
+            _suppressClassicThemeUi = false;
+        }
+    }
+
+    private void ClassicThemeSyncState()
+    {
+        var theme = Config.Preference.Theme;
+        var classicEnabled = theme.UseClassicTheme || theme.ThemeSelected == 42;
+
+        _suppressClassicThemeUi = true;
+        try
+        {
+            CheckUseClassicTheme.Checked = classicEnabled;
+        }
+        finally
+        {
+            _suppressClassicThemeUi = false;
+        }
+
+        HintClassicThemeLight.Visibility = classicEnabled ? Visibility.Visible : Visibility.Collapsed;
+        ComboDarkMode.IsEnabled = !classicEnabled;
+        ComboLightColor.IsEnabled = !classicEnabled;
+        ComboDarkColor.IsEnabled = !classicEnabled;
+        PanClassicCustomSliders.Visibility =
+            classicEnabled && theme.ThemeSelected == 14 ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void ClassicTheme_Check(int themeId)
+    {
+        if (_suppressClassicThemeUi) return;
+
+        var theme = Config.Preference.Theme;
+        if (theme.ThemeSelected != themeId)
+        {
+            theme.ThemeSelected = themeId;
+
+            // 点击经典主题时自动启用经典模式，避免选中后看不到任何变化
+            if (!theme.UseClassicTheme && themeId != 42)
+                theme.UseClassicTheme = true;
+        }
+
+        ClassicThemeSyncState();
+    }
+
+    private void CheckUseClassicTheme_Change(object senderRaw, bool user)
+    {
+        if (_suppressClassicThemeUi || ModAnimation.AniExitsAnyControl()) return;
+
+        var enabled = ((MyCheckBox)senderRaw).Checked == true;
+        var theme = Config.Preference.Theme;
+
+        // 42 号主题没有选择器，关闭经典模式前先退回默认主题
+        if (!enabled && theme.ThemeSelected == 42)
+        {
+            theme.ThemeSelected = 0;
+            ClassicThemeSyncSelection();
+        }
+
+        theme.UseClassicTheme = enabled;
+        ClassicThemeSyncState();
     }
 
     private void PageSetupUI_Loaded(object sender, RoutedEventArgs e)
@@ -55,6 +208,7 @@ public partial class PageSetupUI
             ComboDarkColor.SelectedIndex = (int)Config.Preference.Theme.DarkColor;
             ComboLightColor.SelectedIndex = (int)Config.Preference.Theme.LightColor;
             CheckShowLaunchingHint.Checked = Config.Preference.ShowLaunchingHint;
+            ClassicThemeReload();
 
             // 字体设置
             ComboUiFont.SelectedFontTag = Config.Preference.Font;

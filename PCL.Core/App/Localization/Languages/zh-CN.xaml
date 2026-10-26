@@ -3216,6 +3216,44 @@
     <sys:String x:Key="Setup.Ui.Theme.LightColor">浅色配色</sys:String>
     <sys:String x:Key="Setup.Ui.Theme.Title">主题</sys:String>
 
+    <!-- Setup.Ui.ClassicTheme -->
+
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Title">经典主题</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Use">使用经典主题</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.LightHint">经典主题仅提供浅色配色。启用后会临时切换到浅色模式，但不会修改你的深色模式设置；关闭经典主题后将恢复原来的配色模式。</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Theme">主题</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Hidden">隐藏主题</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.0">龙猫蓝</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.1">甜柠青</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.2">小草绿</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.3">菠萝黄</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.4">橡木棕</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.5">玄素黑</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.6">铁杆粉</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.7">神秘紫</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.8">秋仪金</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.9">活跃橙</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.10">跳票红</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.11">极客蓝</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.12">滑稽彩</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.13">欧皇彩</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.14">自定义</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.42">星空蓝</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.5">灰色是个谎言</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.6">99 次重逢的喜悦</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.7">072 101 108 112 032 068 101 118 032 048 046 052 046 052</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.8">累积赞助达到 ¥23.33 后，在爱发电私信发送【土豆 {identify}】以解锁</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.9">· 反馈一个 Bug，在标记为 [完成] 后回复识别码要求解锁（右键打开反馈页面）&#xA;· 提交一个 Pull Request 或主页预设，在标记为 [完成] 后回复识别码要求解锁</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.10">进行一次正版登录，支持正版游戏！</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.11">右键打开解密游戏入口</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.12">滑稽树上滑稽果，滑稽树下你和我，滑稽之日搞事情，欢乐多又多</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.13">这就是传说中的欧皇了吧</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.14">需要解锁五个隐藏主题</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Hue">色调</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Delta">色调渐变</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Sat">饱和度</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Light">亮度</sys:String>
+
     <!-- Setup.Update -->
 
     <sys:String x:Key="Setup.Update.Changelog.Empty">开发者似乎忘记提供更新摘要了...也许你可以点击下方看看完整更新日志？</sys:String>

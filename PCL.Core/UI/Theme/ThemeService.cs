@@ -18,6 +18,12 @@ public delegate void ColorModeChangedEvent(bool isDarkMode, ColorTheme theme);
 /// <param name="theme">当前配色主题</param>
 public delegate void ColorThemeChangedEvent(ColorTheme theme);
 
+/// <summary>
+/// 经典主题更改事件。
+/// </summary>
+/// <param name="themeId">当前经典主题 ID</param>
+public delegate void ClassicThemeChangedEvent(int themeId);
+
 [LifecycleScope("theme", "主题", false)]
 [LifecycleService(LifecycleState.WindowCreating)]
 public sealed partial class ThemeService
@@ -40,6 +46,7 @@ public sealed partial class ThemeService
         {
             // ignore no change or non-current color theme change
             if (e.OldValue == e.Value) return;
+            if (IsClassicThemeMode) return;
             if (IsDarkMode) { if (e.Item == Config.Preference.Theme.LightColorConfig) return; }
             else { if (e.Item == Config.Preference.Theme.DarkColorConfig) return; }
             // trigger color refresh
@@ -55,17 +62,46 @@ public sealed partial class ThemeService
         }
     );
 
+    [RegisterConfigEvent]
+    public static ConfigEventRegistry OnClassicThemeEnabledConfigChanged => new(
+        scope: Config.Preference.Theme.UseClassicThemeConfig,
+        trigger: ConfigEvent.Update,
+        handler: _ => RefreshClassicMode()
+    );
+
+    [RegisterConfigEvent]
+    public static ConfigEventRegistry OnClassicThemeSelectedConfigChanged => new(
+        scope: Config.Preference.Theme.ThemeSelectedConfig,
+        trigger: ConfigEvent.Update,
+        handler: _ => RefreshClassicThemeSelection()
+    );
+
+    [RegisterConfigEvent]
+    public static ConfigEventRegistry OnClassicCustomThemeConfigChanged => new(
+        scope:
+        [
+            Config.Preference.Theme.WindowHueConfig,
+            Config.Preference.Theme.WindowSatConfig,
+            Config.Preference.Theme.WindowLightConfig,
+            Config.Preference.Theme.WindowDeltaConfig
+        ],
+        trigger: ConfigEvent.Update,
+        handler: _ => RefreshClassicCustomTheme()
+    );
+
     [LifecycleStart]
     private static void _Start()
     {
-        IsDarkMode = _IsDarkMode();
+        IsClassicThemeMode = _IsClassicThemeEnabled();
+        IsDarkMode = IsClassicThemeMode ? false : _IsDarkMode();
         _LogStatus();
         _RefreshAll();
     }
 
     private static void _LogStatus()
     {
-        Context.Debug($"当前状态: {(IsDarkMode ? "Dark" : "Light")}, {CurrentTheme}");
+        Context.Debug($"当前状态: {(IsClassicThemeMode ? "Classic" : IsDarkMode ? "Dark" : "Light")}, " +
+                      $"{(IsClassicThemeMode ? $"ClassicTheme={Config.Preference.Theme.ThemeSelected}" : CurrentTheme.ToString())}");
     }
 
     private static bool _IsDarkMode() => Config.Preference.Theme.ColorMode switch
@@ -76,10 +112,19 @@ public sealed partial class ThemeService
         _ => false
     };
 
+    private static bool _IsClassicThemeEnabled() =>
+        Config.Preference.Theme.UseClassicTheme || Config.Preference.Theme.ThemeSelected == 42;
+
     /// <summary>
     /// 当前是否为深色主题。
     /// </summary>
     public static bool IsDarkMode { get; private set; }
+
+    /// <summary>
+    /// 当前是否处于经典主题模式。经典主题仅支持浅色模式，因此该值为 <see langword="true"/> 时
+    /// <see cref="IsDarkMode"/> 始终为 <see langword="false"/>。
+    /// </summary>
+    public static bool IsClassicThemeMode { get; private set; }
 
     /// <summary>
     /// 配色模式更改事件。
@@ -91,11 +136,17 @@ public sealed partial class ThemeService
     /// </summary>
     public static event ColorThemeChangedEvent? ColorThemeChanged;
 
+    /// <summary>
+    /// 经典主题更改事件。
+    /// </summary>
+    public static event ClassicThemeChangedEvent? ClassicThemeChanged;
+
     private static void _RefreshAll()
     {
         ApplyGrayResources();
         ApplyColorResources();
         ColorModeChanged?.Invoke(IsDarkMode, CurrentTheme);
+        ClassicThemeChanged?.Invoke(Config.Preference.Theme.ThemeSelected);
         _AprilFoolLogic();
     }
 
@@ -111,6 +162,13 @@ public sealed partial class ThemeService
     /// </summary>
     public static void RefreshColorMode()
     {
+        // 经典主题强制浅色，配置值保留到关闭经典主题后再生效
+        if (IsClassicThemeMode)
+        {
+            IsDarkMode = false;
+            return;
+        }
+
         var isDarkMode = _IsDarkMode();
         if (IsDarkMode == isDarkMode) return;
         Context.Info("正在更改配色模式");
@@ -120,6 +178,56 @@ public sealed partial class ThemeService
         {
             Lifecycle.CurrentApplication.Dispatcher.BeginInvoke(_RefreshAll);
         }
+    }
+
+    /// <summary>
+    /// 刷新经典主题模式。启用时临时强制浅色，关闭时恢复用户原本的配色模式。
+    /// </summary>
+    public static void RefreshClassicMode()
+    {
+        var enabled = _IsClassicThemeEnabled();
+        if (enabled == IsClassicThemeMode) return;
+
+        IsClassicThemeMode = enabled;
+        IsDarkMode = enabled ? false : _IsDarkMode();
+        if (!enabled) PclThemeRuntime.ResetCurrentThemeTracking();
+        Context.Info(enabled ? "已启用经典主题模式" : "已关闭经典主题模式");
+        _LogStatus();
+        if (Lifecycle.CurrentState > LifecycleState.Loading)
+        {
+            Lifecycle.CurrentApplication.Dispatcher.BeginInvoke(_RefreshAll);
+        }
+    }
+
+    private static void RefreshClassicThemeSelection()
+    {
+        var wasClassic = IsClassicThemeMode;
+        RefreshClassicMode();
+
+        // 模式切换已经触发了完整刷新
+        if (!IsClassicThemeMode || !wasClassic) return;
+
+        _InvokeClassicThemeChanged();
+    }
+
+    private static void RefreshClassicCustomTheme()
+    {
+        if (!IsClassicThemeMode || Config.Preference.Theme.ThemeSelected != 14) return;
+
+        _InvokeClassicThemeChanged();
+    }
+
+    private static void _InvokeClassicThemeChanged()
+    {
+        if (Lifecycle.CurrentState <= LifecycleState.Loading) return;
+
+        Lifecycle.CurrentApplication.Dispatcher.BeginInvoke(() =>
+        {
+            ApplyColorResources();
+            // 让依赖配色事件刷新画刷的控件跟随经典主题切换
+            ColorThemeChanged?.Invoke(CurrentTheme);
+            ClassicThemeChanged?.Invoke(Config.Preference.Theme.ThemeSelected);
+        });
     }
 
     /// <summary>
@@ -240,6 +348,12 @@ public sealed partial class ThemeService
     /// </summary>
     public static void ApplyColorResources()
     {
+        if (IsClassicThemeMode)
+        {
+            PclThemeRuntime.RefreshPalette().ApplyResources();
+            return;
+        }
+
         var colors = _CalculateColors(CurrentTone, GetCurrentThemeArgs());
         foreach (var c in colors) c.Apply();
     }

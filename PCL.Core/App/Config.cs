@@ -301,7 +301,12 @@ public static partial class Config
             [ConfigItem<int>("UiLauncherDelta", 90, ConfigSource.Local)] public partial int WindowDelta { get; set; }
 
             /// <summary>
-            /// 传说中的主题选择，但是没卵用。
+            /// 是否使用 PCL 原版经典主题。启用时仅使用浅色模式，但不会覆盖配色模式配置。
+            /// </summary>
+            [ConfigItem<bool>("UiUseClassicTheme", false, ConfigSource.Local)] public partial bool UseClassicTheme { get; set; }
+
+            /// <summary>
+            /// 经典主题选择。0~14 为原版主题，42 为仅配置可选的星空蓝。
             /// </summary>
             [ConfigItem<int>("UiLauncherTheme", 0, ConfigSource.Local)] public partial int ThemeSelected { get; set; }
         }

@@ -3159,6 +3159,44 @@
     <sys:String x:Key="Setup.Ui.Theme.LightColor">淺色配色</sys:String>
     <sys:String x:Key="Setup.Ui.Theme.Title">主題</sys:String>
 
+    <!-- Setup.Ui.ClassicTheme -->
+
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Title">經典主題</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Use">使用經典主題</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.LightHint">經典主題僅提供淺色配色。啟用後會暫時切換到淺色模式，但不會修改你的深色模式設定；關閉經典主題後將恢復原本的配色模式。</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Theme">主題</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Hidden">隱藏主題</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.0">龍貓藍</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.1">甜檸青</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.2">小草綠</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.3">菠蘿黃</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.4">橡木棕</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.5">玄素黑</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.6">鐵桿粉</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.7">神秘紫</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.8">秋儀金</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.9">活躍橙</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.10">跳票紅</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.11">極客藍</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.12">滑稽彩</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.13">歐皇彩</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.14">自訂</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.42">星空藍</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.5">灰色是個謊言</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.6">99 次重逢的喜悅</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.7">072 101 108 112 032 068 101 118 032 048 046 052 046 052</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.8">累積贊助達到 ¥23.33 後，在愛發電私訊發送【土豆 {identify}】以解鎖</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.9">· 回饋一個 Bug，在標記為 [完成] 後回覆識別碼要求解鎖（右鍵開啟回饋頁面）&#xA;· 提交一個 Pull Request 或首頁預設，在標記為 [完成] 後回覆識別碼要求解鎖</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.10">進行一次正版登入，支持正版遊戲！</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.11">右鍵開啟解密遊戲入口</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.12">滑稽樹上滑稽果，滑稽樹下你和我，滑稽之日搞事情，歡樂多又多</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.13">這就是傳說中的歐皇了吧</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.14">需要解鎖五個隱藏主題</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Hue">色調</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Delta">色調漸變</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Sat">飽和度</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Light">亮度</sys:String>
+
     <!-- Setup.Update -->
 
     <sys:String x:Key="Setup.Update.Changelog.Empty">開發者似乎忘記提供更新摘要了...也許你可以點擊下方看看完整更新紀錄？</sys:String>

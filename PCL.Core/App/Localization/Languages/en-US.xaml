@@ -3216,6 +3216,44 @@
     <sys:String x:Key="Setup.Ui.Theme.LightColor">Light theme color</sys:String>
     <sys:String x:Key="Setup.Ui.Theme.Title">Theme</sys:String>
 
+    <!-- Setup.Ui.ClassicTheme -->
+
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Title">Classic themes</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Use">Use classic themes</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.LightHint">Classic themes are light-only. Enabling them temporarily switches the launcher to light mode without changing your dark mode setting; your original color mode is restored when you turn them off.</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Theme">Themes</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Hidden">Hidden themes</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.0">LTCat Blue</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.1">Sweet Lime Cyan</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.2">Grass Green</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.3">Pineapple Yellow</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.4">Oak Brown</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.5">Mystic Black</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.6">Iron Pink</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.7">Mystic Purple</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.8">Autumn Gold</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.9">Active Orange</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.10">Delay Red</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.11">Geek Blue</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.12">Comical Color</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.13">Lucky Color</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.14">Custom</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.42">Starry Blue</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.5">Grey is a lie</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.6">The joy of 99 reunions</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.7">072 101 108 112 032 068 101 118 032 048 046 052 046 052</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.8">Donate a cumulative total of ¥23.33, then send [Potato {identify}] to the Afdian account to unlock</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.9">· Report a bug and reply with your identification code after it is marked [Completed] to unlock (right-click to open the feedback page)&#xA;· Submit a Pull Request or homepage preset and reply with your identification code after it is marked [Completed] to unlock</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.10">Sign in with a genuine Microsoft account to support the official game!</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.11">Right-click to open the puzzle entrance</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.12">Funny trees bear funny fruit; beneath the funny tree I wait for you. On Funny Day we make trouble, oh what fun it is!</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.13">This must be the legendary lucky one</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.14">Unlock five hidden themes</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Hue">Hue</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Delta">Hue gradient</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Sat">Saturation</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Light">Lightness</sys:String>
+
     <!-- Setup.Update -->
 
     <sys:String x:Key="Setup.Update.Changelog.Empty">The developers seem to have forgotten to provide an update summary... Maybe click below to view the full changelog?</sys:String>

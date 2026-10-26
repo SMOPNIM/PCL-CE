@@ -33,15 +33,68 @@ public static class ThemeManager
         ModBase.RunInUi(() =>
         {
             if (!ModMain.frmMain.IsLoaded) return;
+            RefreshTitlebar();
             RefreshBackground();
             RefreshAllContextMenuThemes();
         });
+    }
+
+    // 标题栏渐变与背景图
+    private static void RefreshTitlebar()
+    {
+        var titleBar = ModMain.frmMain;
+        if (!ThemeService.IsClassicThemeMode)
+        {
+            titleBar.RectTitleGradient.Fill = null;
+            titleBar.ImgTitle.Source = string.Empty;
+            titleBar.ImgTitle.Opacity = 1d;
+            return;
+        }
+
+        var palette = PclThemeRuntime.RefreshPalette();
+
+        var brush = new LinearGradientBrush
+        {
+            StartPoint = new Point(0d, 0d),
+            EndPoint = new Point(1d, 0d)
+        };
+        foreach (var stop in palette.TitlebarStops)
+            brush.GradientStops.Add(new GradientStop(stop.Color.ToWpfColor(), stop.Offset));
+        brush.Freeze();
+        titleBar.RectTitleGradient.Fill = brush;
+
+        titleBar.ImgTitle.Source = palette.HasBanner
+            ? ModBase.pathImage + $"Themes/{palette.ThemeId}.png"
+            : string.Empty;
+        titleBar.ImgTitle.Opacity = palette.BannerOpacity;
     }
     
     // 主页面背景
     private static void RefreshBackground()
     {
-        if (Config.Preference.Background.BackgroundColorful)
+        if (ThemeService.IsClassicThemeMode)
+        {
+            if (Config.Preference.Background.BackgroundColorful)
+            {
+                var palette = PclThemeRuntime.RefreshPalette();
+                var brush = new LinearGradientBrush
+                {
+                    EndPoint = new Point(0.1, 1),
+                    StartPoint = new Point(0.9, 0)
+                };
+
+                foreach (var stop in palette.BackgroundStops)
+                    brush.GradientStops.Add(new GradientStop(stop.Color.ToWpfColor(), stop.Offset));
+
+                ModMain.frmMain.PanForm.Background = brush;
+            }
+            else
+            {
+                // 原版经典主题的纯色背景
+                ModMain.frmMain.PanForm.Background = new SolidColorBrush(Color.FromRgb(250, 250, 250));
+            }
+        }
+        else if (Config.Preference.Background.BackgroundColorful)
         {
             var brush = new LinearGradientBrush
             {

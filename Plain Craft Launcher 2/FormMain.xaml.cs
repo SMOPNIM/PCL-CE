@@ -63,6 +63,7 @@ public partial class FormMain
         // ThemeRefreshColor()
         ThemeService.ColorModeChanged += (_, _) => ThemeManager.ThemeRefresh();
         ThemeService.ColorThemeChanged += theme => ThemeManager.ThemeRefresh((int)theme);
+        ThemeService.ClassicThemeChanged += _ => ThemeManager.ThemeRefresh();
         // 窗体参数初始化
         ModMain.frmMain = this;
         ModMain.frmLaunchLeft = new PageLaunchLeft();
