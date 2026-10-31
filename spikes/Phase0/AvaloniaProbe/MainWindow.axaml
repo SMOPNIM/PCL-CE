@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="PCL.Phase0.AvaloniaProbe.MainWindow"
+        Title="PCL Phase 0 / Avalonia IME Probe"
+        Width="720" Height="460"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="28" Spacing="14">
+        <TextBlock Text="PCL Phase 0 / Avalonia 12.1.4" FontSize="24" FontWeight="SemiBold" />
+        <TextBlock TextWrapping="Wrap"
+                   Text="用途：验证 Avalonia 在当前平台能启动、能渲染中文，并验证 fcitx5 / ibus 中文输入。" />
+        <TextBlock TextWrapping="Wrap"
+                   Text="步骤 1：在主窗口输入框输入中文。步骤 2：点击下方按钮，在首次打开的对话框中输入中文。" />
+
+        <TextBox Name="MainInput" PlaceholderText="主窗口输入框：请输入中文" />
+
+        <Button Content="打开对话框 IME 探针" Click="OpenDialogProbe" HorizontalAlignment="Left" />
+
+        <Border Padding="12" Background="#14000000" CornerRadius="6">
+            <StackPanel Spacing="4">
+                <TextBlock Name="RuntimeInfo" FontFamily="Consolas" />
+                <TextBlock Text="如果对话框首次聚焦时无法切换输入法，请切到其他窗口再切回，观察是否恢复。该现象对应 AvaloniaUI/Avalonia#22315。"
+                           TextWrapping="Wrap" FontSize="12" Opacity="0.75" />
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Window>

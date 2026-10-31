@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>PCL.Phase0.AvaloniaProbe</RootNamespace>
+    <AssemblyName>PCL.Phase0.AvaloniaProbe</AssemblyName>
+    <Nullable>enable</Nullable>
+    <LangVersion>14</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Headless" Version="12.1.4" />
+  </ItemGroup>
+</Project>

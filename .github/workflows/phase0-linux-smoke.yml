@@ -1,0 +1,37 @@
+name: Phase 0 Linux Smoke
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'spikes/Phase0/AvaloniaProbe/**'
+      - '.github/workflows/phase0-linux-smoke.yml'
+
+jobs:
+  avalonia-headless:
+    name: Avalonia 12.1.4 headless on Ubuntu
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build probe
+        run: dotnet build spikes/Phase0/AvaloniaProbe/AvaloniaProbe.csproj -c Release --nologo
+
+      - name: Headless startup
+        run: dotnet run --project spikes/Phase0/AvaloniaProbe/AvaloniaProbe.csproj -c Release --no-build -- --smoke
+
+      - name: Cross-publish linux-x64
+        run: |
+          dotnet publish spikes/Phase0/AvaloniaProbe/AvaloniaProbe.csproj \
+            -c Release -r linux-x64 --self-contained false \
+            -o artifact/phase0/avalonia-probe-linux-x64 --nologo
