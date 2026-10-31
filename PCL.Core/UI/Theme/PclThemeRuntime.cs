@@ -5,7 +5,7 @@ using PCL.Core.App;
 namespace PCL.Core.UI.Theme;
 
 /// <summary>
-/// 经典主题运行时：负责调色板缓存、主题 14 的实时参数以及主题 12 的随机游走。
+/// 经典主题运行时：负责调色板缓存、主题 14 的实时参数、主题 12 的随机游走以及主题 44 的随机闪烁。
 /// <para>
 /// <see cref="RefreshPalette"/> 只会在“切换到 12 号主题”时推进一步随机游走，
 /// 重复刷新不会继续推进；因此 <c>ThemeManager</c> 可以安全地反复读取当前调色板。
@@ -23,6 +23,11 @@ public static class PclThemeRuntime
     private static bool _theme12Seeded;
     private static int _theme12Hue;
     private static int _theme12Step;
+
+    private static bool _trueComicalSeeded;
+    private static int _trueComicalHue;
+    private static int _trueComicalSaturation;
+    private static int _trueComicalLightAdjust;
 
     /// <summary>
     /// 当前调色板。首次访问时按当前配置构建。
@@ -87,6 +92,23 @@ public static class PclThemeRuntime
 
                     hue = custom.Hue;
                     break;
+
+                case PclThemeCatalog.TrueComicalColorThemeId:
+                    if (_lastThemeId != definition.Id || !_trueComicalSeeded)
+                    {
+                        _trueComicalHue = Random.Shared.Next(0, 360);
+                        _trueComicalSaturation = Random.Shared.Next(40, 71);
+                        _trueComicalLightAdjust = Random.Shared.Next(-20, 21);
+                        _trueComicalSeeded = true;
+                        Cache.Remove(definition.Id);
+                    }
+
+                    custom = new PclThemeCustomSettings(
+                        Hue: _trueComicalHue,
+                        Saturation: _trueComicalSaturation,
+                        LightAdjust: _trueComicalLightAdjust);
+                    hue = custom.Hue;
+                    break;
             }
 
             if (!Cache.TryGetValue(definition.Id, out var palette))
@@ -110,6 +132,21 @@ public static class PclThemeRuntime
         {
             if (themeId is { } id) Cache.Remove(id);
             else Cache.Clear();
+            _current = null;
+        }
+    }
+
+    /// <summary>
+    /// 为“真·滑稽彩”生成下一组随机配色。仅在该主题处于选中状态时生效。
+    /// </summary>
+    public static void RandomizeCurrent()
+    {
+        lock (SyncRoot)
+        {
+            if (Config.Preference.Theme.ThemeSelected != PclThemeCatalog.TrueComicalColorThemeId) return;
+
+            _trueComicalSeeded = false;
+            Cache.Remove(PclThemeCatalog.TrueComicalColorThemeId);
             _current = null;
         }
     }
@@ -139,6 +176,10 @@ public static class PclThemeRuntime
             _theme12Seeded = false;
             _theme12Hue = 0;
             _theme12Step = 0;
+            _trueComicalSeeded = false;
+            _trueComicalHue = 0;
+            _trueComicalSaturation = 0;
+            _trueComicalLightAdjust = 0;
         }
     }
 }

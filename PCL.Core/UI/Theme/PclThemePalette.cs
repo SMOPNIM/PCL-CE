@@ -9,7 +9,7 @@ namespace PCL.Core.UI.Theme;
 public readonly record struct PclColorStop(double Offset, PclColor Color);
 
 /// <summary>
-/// 自定义经典主题（14 号）的输入参数。
+/// 自定义经典主题（14 号）与“真·滑稽彩”（44 号）的输入参数。
 /// </summary>
 public readonly record struct PclThemeCustomSettings(
     int Hue = 180,
@@ -49,14 +49,15 @@ public sealed class PclThemePalette
     /// </summary>
     /// <param name="definition">主题定义。</param>
     /// <param name="hue">实际使用的色相，用于主题 12 的随机游走与主题 14 的自定义色相。</param>
-    /// <param name="custom">主题 14 的自定义参数。</param>
+    /// <param name="custom">主题 14 与 44 的自定义参数。</param>
     public static PclThemePalette Create(
         PclThemeDefinition definition,
         int hue,
         PclThemeCustomSettings custom = default)
     {
-        var saturation = definition.Id == 14 ? custom.Saturation : definition.Saturation;
-        var lightAdjust = definition.Id == 14 ? custom.LightAdjust : definition.LightAdjust;
+        var useCustomSettings = definition.Id is 14 or PclThemeCatalog.TrueComicalColorThemeId;
+        var saturation = useCustomSettings ? custom.Saturation : definition.Saturation;
+        var lightAdjust = useCustomSettings ? custom.LightAdjust : definition.LightAdjust;
 
         PclColor Hsl(double h, double s, double l) => PclColor.FromHsl2(h, s, l);
 

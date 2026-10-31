@@ -34,7 +34,6 @@ public partial class PageSetupUI
     private const int ThemeSystemClassic = 1;
 
     private readonly Dictionary<int, MyRadioBox> _classicThemeRadios = [];
-    private MyRadioBox? _classicThemeNoneRadio;
     private bool _classicThemeUiInitialized;
     private bool _suppressClassicThemeUi;
 
@@ -42,18 +41,6 @@ public partial class PageSetupUI
     {
         if (_classicThemeUiInitialized) return;
         _classicThemeUiInitialized = true;
-
-        // 42 号主题没有可见单选按钮，用一个隐藏项承载“无选择”状态，
-        // 避免 MyRadioBox 在取消选中时自动选中第一个主题。
-        _classicThemeNoneRadio = new MyRadioBox
-        {
-            Visibility = Visibility.Collapsed,
-            IsEnabled = false,
-            Focusable = false
-        };
-        Grid.SetRow(_classicThemeNoneRadio, 0);
-        Grid.SetColumn(_classicThemeNoneRadio, 0);
-        PanClassicThemeGrid.Children.Add(_classicThemeNoneRadio);
 
         foreach (var definition in PclThemeCatalog.Selectable)
         {
@@ -104,11 +91,7 @@ public partial class PageSetupUI
         _suppressClassicThemeUi = true;
         try
         {
-            if (themeId == 42)
-            {
-                _classicThemeNoneRadio!.Checked = true;
-            }
-            else if (_classicThemeRadios.TryGetValue(themeId, out var radio))
+            if (_classicThemeRadios.TryGetValue(themeId, out var radio))
             {
                 radio.Checked = true;
             }
@@ -126,7 +109,8 @@ public partial class PageSetupUI
     private void ClassicThemeSyncState()
     {
         var theme = Config.Preference.Theme;
-        var classicEnabled = theme.UseClassicTheme || theme.ThemeSelected == 42;
+        var classicEnabled = theme.UseClassicTheme ||
+                             theme.ThemeSelected == PclThemeCatalog.StarryBlueThemeId;
 
         _suppressClassicThemeUi = true;
         try
@@ -153,8 +137,9 @@ public partial class PageSetupUI
         {
             theme.ThemeSelected = themeId;
 
-            // 点击经典主题时自动启用经典模式，避免选中后看不到任何变化
-            if (!theme.UseClassicTheme && themeId != 42)
+            // 点击经典主题时自动启用经典模式，避免选中后看不到任何变化。
+            // 42 号主题由 ThemeService 强制启用经典模式，无需写入配置。
+            if (!theme.UseClassicTheme && themeId != PclThemeCatalog.StarryBlueThemeId)
                 theme.UseClassicTheme = true;
         }
 
@@ -169,8 +154,8 @@ public partial class PageSetupUI
         var enabled = ComboThemeSystem.SelectedIndex == ThemeSystemClassic;
         var theme = Config.Preference.Theme;
 
-        // 42 号主题没有选择器，切回 CE 前先退回默认主题
-        if (!enabled && theme.ThemeSelected == 42)
+        // 42 号主题会强制经典模式，切回 CE 前先退回默认主题
+        if (!enabled && theme.ThemeSelected == PclThemeCatalog.StarryBlueThemeId)
         {
             theme.ThemeSelected = 0;
             ClassicThemeSyncSelection();

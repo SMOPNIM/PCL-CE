@@ -113,7 +113,8 @@ public sealed partial class ThemeService
     };
 
     private static bool _IsClassicThemeEnabled() =>
-        Config.Preference.Theme.UseClassicTheme || Config.Preference.Theme.ThemeSelected == 42;
+        Config.Preference.Theme.UseClassicTheme ||
+        Config.Preference.Theme.ThemeSelected == PclThemeCatalog.StarryBlueThemeId;
 
     /// <summary>
     /// 当前是否为深色主题。
@@ -214,6 +215,18 @@ public sealed partial class ThemeService
     {
         if (!IsClassicThemeMode || Config.Preference.Theme.ThemeSelected != 14) return;
 
+        _InvokeClassicThemeChanged();
+    }
+
+    /// <summary>
+    /// 推进“真·滑稽彩”的随机配色。由界面主时钟定期调用。
+    /// </summary>
+    public static void TickRandomClassicTheme()
+    {
+        if (!IsClassicThemeMode ||
+            Config.Preference.Theme.ThemeSelected != PclThemeCatalog.TrueComicalColorThemeId) return;
+
+        PclThemeRuntime.RandomizeCurrent();
         _InvokeClassicThemeChanged();
     }
 

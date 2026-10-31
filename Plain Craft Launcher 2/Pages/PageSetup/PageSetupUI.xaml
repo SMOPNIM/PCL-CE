@@ -75,7 +75,7 @@
                             <StackPanel x:Name="PanClassicTheme" Visibility="Collapsed" Margin="0,0,0,7">
                                 <local:MyHint x:Name="HintClassicThemeLight" Text="{DynamicResource Setup.Ui.ClassicTheme.LightHint}"
                                               Theme="Blue" Margin="0,0,0,10" />
-                                <Grid x:Name="PanClassicThemeGrid" Height="90" Margin="0,0,0,7">
+                                <Grid x:Name="PanClassicThemeGrid" Height="120" Margin="0,0,0,7">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" SharedSizeGroup="Name1" />
                                         <ColumnDefinition />
@@ -88,11 +88,14 @@
                                         <RowDefinition />
                                         <RowDefinition />
                                         <RowDefinition />
+                                        <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"
                                                Text="{DynamicResource Setup.Ui.ClassicTheme.Row.Theme}" Margin="0,0,20,0" />
                                     <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"
                                                Text="{DynamicResource Setup.Ui.ClassicTheme.Row.Hidden}" Margin="0,0,20,0" />
+                                    <TextBlock Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                               Text="{DynamicResource Setup.Ui.ClassicTheme.Row.BigHidden}" Margin="0,0,20,0" />
                                 </Grid>
                                 <Grid x:Name="PanClassicCustomSliders" Visibility="Collapsed" Margin="0,8,0,0">
                                     <Grid.ColumnDefinitions>

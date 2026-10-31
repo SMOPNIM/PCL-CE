@@ -98,12 +98,8 @@ public class PclThemeTest
     [TestMethod]
     public void TestCatalogLayout()
     {
-        Assert.AreEqual(16, PclThemeCatalog.All.Count);
-        Assert.AreEqual(15, PclThemeCatalog.Selectable.Count);
-
-        Assert.IsNull(PclThemeCatalog.GetById(42)!.SelectorRow);
-        Assert.IsNull(PclThemeCatalog.GetById(42)!.SelectorColumn);
-        Assert.IsTrue(PclThemeCatalog.GetById(42)!.HasBanner);
+        Assert.AreEqual(18, PclThemeCatalog.All.Count);
+        Assert.AreEqual(18, PclThemeCatalog.Selectable.Count);
 
         for (var id = 0; id <= 14; id++)
         {
@@ -120,12 +116,43 @@ public class PclThemeTest
         Assert.AreEqual(5, PclThemeCatalog.GetById(14)!.SelectorColumn);
         Assert.AreEqual(2, PclThemeCatalog.GetById(14)!.SelectorRow);
 
+        Assert.AreEqual(3, PclThemeCatalog.GetById(42)!.SelectorRow);
+        Assert.AreEqual(1, PclThemeCatalog.GetById(42)!.SelectorColumn);
+        Assert.AreEqual(3, PclThemeCatalog.GetById(43)!.SelectorRow);
+        Assert.AreEqual(2, PclThemeCatalog.GetById(43)!.SelectorColumn);
+        Assert.AreEqual(3, PclThemeCatalog.GetById(44)!.SelectorRow);
+        Assert.AreEqual(3, PclThemeCatalog.GetById(44)!.SelectorColumn);
+
         int[] bannerIds = [5, 6, 7, 8, 9, 10, 11, 12, 13, 42];
         foreach (var definition in PclThemeCatalog.All)
             Assert.AreEqual(bannerIds.Contains(definition.Id), definition.HasBanner, $"banner {definition.Id}");
 
         Assert.AreEqual(0.25d, PclThemeCatalog.GetById(13)!.BannerOpacity);
         Assert.AreEqual(0.5d, PclThemeCatalog.GetById(12)!.BannerOpacity);
+    }
+
+    [TestMethod]
+    public void TestBlindingWhitePalette()
+    {
+        var definition = PclThemeCatalog.GetById(PclThemeCatalog.BlindingWhiteThemeId)!;
+        var palette = PclThemePalette.Create(definition, definition.Hue);
+
+        Assert.AreEqual(999, definition.LightAdjust);
+        AssertColor(255, 255, 255, palette.Color2);
+        AssertColor(255, 255, 255, palette.TitlebarStops[0].Color);
+    }
+
+    [TestMethod]
+    public void TestTrueComicalColorPalette()
+    {
+        var definition = PclThemeCatalog.GetById(PclThemeCatalog.TrueComicalColorThemeId)!;
+        var palette = PclThemePalette.Create(definition, 120,
+            new PclThemeCustomSettings(Hue: 120, Saturation: 55, LightAdjust: 10, TitlebarDelta: 0));
+
+        Assert.AreEqual(PclTitlebarMode.FourStop, definition.TitlebarMode);
+        Assert.AreEqual(4, palette.TitlebarStops.Count);
+        AssertColor(PclColor.FromHsl2(120, 55, 75), palette.Color4);
+        AssertColor(PclColor.FromHsl2(99, 55, 63), palette.TitlebarStops[0].Color);
     }
 
     private static void AssertColor(byte red, byte green, byte blue, PclColor color) =>

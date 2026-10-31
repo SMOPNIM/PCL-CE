@@ -16,6 +16,7 @@ using PCL.Core.App.Configuration;
 using PCL.Core.App.Localization;
 using PCL.Core.Minecraft.IdentityModel.OAuth;
 using PCL.Core.UI;
+using PCL.Core.UI.Theme;
 using PCL.Core.Utils;
 using PCL.Core.Utils.OS;
 using PCL.Core.Utils.Secret;
@@ -131,6 +132,8 @@ public static class ModMain
             try
             {
                 #region 每 250ms 执行一次的代码
+
+                ThemeService.TickRandomClassicTheme();
             }
 
             #endregion

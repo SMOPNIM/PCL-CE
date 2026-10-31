@@ -5,10 +5,25 @@ namespace PCL.Core.UI.Theme;
 
 /// <summary>
 /// PCL 原版经典主题目录。
-/// 选择器布局与 2.2.3 保持一致：三行五列，42 号主题没有单选按钮。
+/// 选择器布局与 2.2.3 保持一致，并额外提供“大·隐藏主题”一行。
 /// </summary>
 public static class PclThemeCatalog
 {
+    /// <summary>
+    /// 星空蓝，原版仅允许通过配置选择。
+    /// </summary>
+    public const int StarryBlueThemeId = 42;
+
+    /// <summary>
+    /// 眼瞎白，原版 <c>ThemeDontClick</c> 模式 1。
+    /// </summary>
+    public const int BlindingWhiteThemeId = 43;
+
+    /// <summary>
+    /// 真·滑稽彩，原版 <c>ThemeDontClick</c> 模式 2。
+    /// </summary>
+    public const int TrueComicalColorThemeId = 44;
+
     /// <summary>
     /// 全部经典主题定义，按 ID 排列。
     /// </summary>
@@ -128,9 +143,27 @@ public static class PclThemeCatalog
         },
         new()
         {
-            Id = 42, NameKey = "Setup.Ui.ClassicTheme.Name.42",
+            Id = StarryBlueThemeId, NameKey = "Setup.Ui.ClassicTheme.Name.42",
+            TooltipKey = "Setup.Ui.ClassicTheme.Tooltip.42",
+            SelectorRow = 3, SelectorColumn = 1,
             Hue = 225, Saturation = 60, LightAdjust = -15, TitlebarMode = PclTitlebarMode.Standard,
-            UnlockKind = PclThemeUnlockKind.ConfigOnly, UnlockRequirement = "Setup.ini only"
+            UnlockKind = PclThemeUnlockKind.ConfigOnly, UnlockRequirement = "hidden selector"
+        },
+        new()
+        {
+            Id = BlindingWhiteThemeId, NameKey = "Setup.Ui.ClassicTheme.Name.43",
+            TooltipKey = "Setup.Ui.ClassicTheme.Tooltip.43",
+            SelectorRow = 3, SelectorColumn = 2, IsHidden = true,
+            Hue = 210, Saturation = 85, LightAdjust = 999, TitlebarMode = PclTitlebarMode.Standard,
+            UnlockKind = PclThemeUnlockKind.ConfigOnly, UnlockRequirement = "ThemeDontClick mode 1"
+        },
+        new()
+        {
+            Id = TrueComicalColorThemeId, NameKey = "Setup.Ui.ClassicTheme.Name.44",
+            TooltipKey = "Setup.Ui.ClassicTheme.Tooltip.44",
+            SelectorRow = 3, SelectorColumn = 3, IsHidden = true,
+            Hue = 210, Saturation = 55, TitlebarMode = PclTitlebarMode.FourStop,
+            UnlockKind = PclThemeUnlockKind.ConfigOnly, UnlockRequirement = "ThemeDontClick mode 2"
         }
     ];
 

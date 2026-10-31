@@ -306,7 +306,7 @@ public static partial class Config
             [ConfigItem<bool>("UiUseClassicTheme", false, ConfigSource.Local)] public partial bool UseClassicTheme { get; set; }
 
             /// <summary>
-            /// 经典主题选择。0~14 为原版主题，42 为仅配置可选的星空蓝。
+            /// 经典主题选择。0~14 为原版主题，42~44 为大隐藏主题。
             /// </summary>
             [ConfigItem<int>("UiLauncherTheme", 0, ConfigSource.Local)] public partial int ThemeSelected { get; set; }
         }

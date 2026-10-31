@@ -3165,6 +3165,7 @@
     <sys:String x:Key="Setup.Ui.ClassicTheme.LightHint">經典主題僅提供淺色配色。啟用後會暫時切換到淺色模式，但不會修改你的深色模式設定；關閉經典主題後將恢復原本的配色模式。</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Theme">主題</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Hidden">隱藏主題</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.BigHidden">大·隱藏主題</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.0">龍貓藍</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.1">甜檸青</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.2">小草綠</sys:String>
@@ -3180,7 +3181,12 @@
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.12">滑稽彩</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.13">歐皇彩</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.14">自訂</sys:String>
-    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.42">星空藍</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.42">42</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.43">眼瞎白</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.44">真·滑稽彩</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.42">星空藍</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.43">亮到看不清任何顏色</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.44">每次重新整理都會隨機變換配色，請注意閃爍</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.5">灰色是個謊言</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.6">99 次重逢的喜悅</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.7">072 101 108 112 032 068 101 118 032 048 046 052 046 052</sys:String>

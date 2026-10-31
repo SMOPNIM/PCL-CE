@@ -52,12 +52,12 @@ public sealed record PclThemeDefinition
     public string? TooltipKey { get; init; }
 
     /// <summary>
-    /// 选择器行号，42 号主题为 <see langword="null"/>。
+    /// 选择器行号；为 <see langword="null"/> 时不显示单选按钮。
     /// </summary>
     public int? SelectorRow { get; init; }
 
     /// <summary>
-    /// 选择器列号（从 1 开始，0 列用于行标签），42 号主题为 <see langword="null"/>。
+    /// 选择器列号（从 1 开始，0 列用于行标签）；为 <see langword="null"/> 时不显示单选按钮。
     /// </summary>
     public int? SelectorColumn { get; init; }
 
@@ -108,7 +108,7 @@ public sealed record PclThemeDefinition
     /// <summary>
     /// 是否带有标题栏背景图。
     /// </summary>
-    public bool HasBanner => Id is >= 5 and not 14;
+    public bool HasBanner => Id is (>= 5 and <= 13) or PclThemeCatalog.StarryBlueThemeId;
 
     /// <summary>
     /// 标题栏背景图透明度。
@@ -116,7 +116,7 @@ public sealed record PclThemeDefinition
     public double BannerOpacity => Id == 13 ? 0.25d : 0.5d;
 
     /// <summary>
-    /// 主题 12 与 14 的配色由运行时决定。
+    /// 主题 12、14 与 44 的配色由运行时决定。
     /// </summary>
-    public bool IsDynamic => Id is 12 or 14;
+    public bool IsDynamic => Id is 12 or 14 or PclThemeCatalog.TrueComicalColorThemeId;
 }

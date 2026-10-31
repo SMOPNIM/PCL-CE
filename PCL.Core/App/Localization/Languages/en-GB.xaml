@@ -3165,6 +3165,7 @@
     <sys:String x:Key="Setup.Ui.ClassicTheme.LightHint">Classic themes are light-only. Enabling them temporarily switches the launcher to light mode without changing your dark mode setting; your original colour mode is restored when you turn them off.</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Theme">Themes</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Hidden">Hidden themes</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.BigHidden">Big·Hidden Themes</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.0">LTCat Blue</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.1">Sweet Lime Cyan</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.2">Grass Green</sys:String>
@@ -3180,7 +3181,12 @@
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.12">Comical Colour</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.13">Lucky Colour</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Name.14">Custom</sys:String>
-    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.42">Starry Blue</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.42">42</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.43">Blinding White</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.44">True Comical Colour</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.42">Starry Blue</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.43">So bright that you can barely see any colour</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.44">Colours change randomly on every refresh. Mind the flashing.</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.5">Grey is a lie</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.6">The joy of 99 reunions</sys:String>
     <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.7">072 101 108 112 032 068 101 118 032 048 046 052 046 052</sys:String>
