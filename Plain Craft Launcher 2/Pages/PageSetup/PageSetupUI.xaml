@@ -42,7 +42,8 @@
                                     <ColumnDefinition SharedSizeGroup="SubName" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{DynamicResource Setup.Ui.Theme.System}" />
+                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{DynamicResource Setup.Ui.Theme.System}"
+                                           Margin="0,0,20,0" />
                                 <local:MyComboBox Grid.Column="1" x:Name="ComboThemeSystem" SelectionChanged="ThemeSystem_Change">
                                     <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.System.CE}" />
                                     <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.System.Classic}" />
@@ -57,7 +58,8 @@
                                     <ColumnDefinition SharedSizeGroup="SubName" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{DynamicResource Setup.Ui.Theme.Mode}" />
+                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{DynamicResource Setup.Ui.Theme.Mode}"
+                                           Margin="0,0,20,0" />
                                 <local:MyComboBox Grid.Column="1" x:Name="ComboDarkMode" Tag="UiDarkMode"
                                                   SelectionChanged="ComboChange">
                                     <local:MyComboBoxItem Content="{DynamicResource Setup.Ui.Theme.Light}" />
