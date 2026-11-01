@@ -4,7 +4,8 @@
 
 | 探针 | 验证项 | 状态 |
 |---|---|---|
-| [AvaloniaProbe](AvaloniaProbe/README.md) | 1. Avalonia 版本、启动、Linux IME | PARTIAL |
+| [AvaloniaProbe](AvaloniaProbe/README.md) | 1. Avalonia 版本、启动、Linux IME | Wayland + fcitx5 实测通过；X11/ibus 未覆盖 |
+| [SecretStoreProbe](SecretStoreProbe/README.md) | 3. Secret Service 与 AES 文件 fallback | 两种路径探针实测通过；仅为 Phase 0 探针，不代表生产实现 |
 
 后续探针建议：
 
