@@ -432,7 +432,7 @@ public class CacheService : ICacheService, IAsyncDisposable
 
         _disposed = true;
 
-        _eviction.Stop();
+        await _eviction.StopAsync().ConfigureAwait(false);
 
         try
         {

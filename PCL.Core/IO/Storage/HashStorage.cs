@@ -35,9 +35,32 @@ public class HashStorage(string folder, IHashProvider hashProvider, bool compres
         if (hash is not null && hash.Length != hashProvider.Length)
             throw new ArgumentException("Provide hash is not correct", nameof(hash));
 
-        if (input.CanSeek) input.Position = 0;
+        if (!input.CanSeek)
+        {
+            Directory.CreateDirectory(folder);
+            var tempPath = Path.Combine(folder, $".{Guid.NewGuid():N}.pcl-hash-storage.tmp");
+            var tempCreated = false;
+            try
+            {
+                await using (var temp = new FileStream(tempPath, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None))
+                {
+                    tempCreated = true;
+                    await input.CopyToAsync(temp).ConfigureAwait(false);
+                    temp.Position = 0;
+                    return await PutAsync(temp, hash).ConfigureAwait(false);
+                }
+            }
+            finally
+            {
+                if (tempCreated)
+                    File.Delete(tempPath);
+            }
+        }
+
+        input.Position = 0;
 
         var fileHash = hash ?? (await hashProvider.ComputeHashAsync(input).ConfigureAwait(false)).ToHexString();
+        input.Position = 0;
         var destPath = _GetDestPath(fileHash);
         //纠正: 由于之前错误设计导致的文件访问效率低下的文件结构
         if (correctMisplacedFile && _CorrectMisplacedFile(fileHash)) LogWrapper.Info("HashStorage", "Move misplaced file into correct folder");

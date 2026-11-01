@@ -13,7 +13,6 @@ namespace PCL.Core.App.Localization;
 public static class LocalizationFontService
 {
     private const string PclEnglishFont = "./Resources/#PCL English";
-    private static readonly Uri _ApplicationPackUri = new("pack://application:,,,/");
 
     private static readonly IReadOnlyDictionary<string, LocalizationFontProfile> _ExactCultureProfiles =
         new Dictionary<string, LocalizationFontProfile>(StringComparer.OrdinalIgnoreCase)
@@ -49,12 +48,13 @@ public static class LocalizationFontService
     public static FontFamily BuildLaunchFontFamily(string? customFontName = null, LocalizationLanguage? language = null)
     {
         language ??= LocalizationService.CurrentLanguage;
+        var applicationPackUri = new Uri("pack://application:,,,/");
 
         var familyNames = string.IsNullOrWhiteSpace(customFontName)
             ? _GetDefaultFamilyNames(language.FontProfile)
             : _GetCustomFamilyNames(customFontName, language.FontProfile);
 
-        return new FontFamily(_ApplicationPackUri, string.Join(", ", familyNames));
+        return new FontFamily(applicationPackUri, string.Join(", ", familyNames));
     }
 
     /// <summary>
@@ -70,7 +70,8 @@ public static class LocalizationFontService
     /// </summary>
     public static FontFamily BuildRepresentativeFontFamily(LocalizationFontProfile profile)
     {
-        return new FontFamily(_ApplicationPackUri, string.Join(", ", _GetDefaultFamilyNames(profile)));
+        var applicationPackUri = new Uri("pack://application:,,,/");
+        return new FontFamily(applicationPackUri, string.Join(", ", _GetDefaultFamilyNames(profile)));
     }
 
     /// <summary>

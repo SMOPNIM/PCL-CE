@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=PCL Phase 0 Avalonia Probe
+Exec=PCL.Phase0.AvaloniaProbe
+Icon=appicon
+Type=Application
+Categories=Utility;
+Terminal=false

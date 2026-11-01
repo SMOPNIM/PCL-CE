@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Data.Sqlite;
 using PCL.Core.Utils.Exts;
 using PCL.Core.Utils.Hash;
 using System;
@@ -26,6 +27,11 @@ public class HashCacheTest
     [TestCleanup]
     public void Cleanup()
     {
+        using (var connection = new SqliteConnection($"Data Source={Path.Combine(_tempDir, ".hash_cache.db")};Pooling=True"))
+        {
+            SqliteConnection.ClearPool(connection);
+        }
+
         if (Directory.Exists(_tempDir))
             Directory.Delete(_tempDir, true);
     }

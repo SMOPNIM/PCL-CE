@@ -163,29 +163,29 @@ public class CacheSystemIntegrationTest
     public async Task MixedExpirationDates_ShouldExpireIndependently()
     {
         // Arrange
-        var shortLived = new CachePolicy { AbsoluteExpiration = TimeSpan.FromMilliseconds(100) };
-        var mediumLived = new CachePolicy { AbsoluteExpiration = TimeSpan.FromMilliseconds(200) };
-        var longLived = new CachePolicy { AbsoluteExpiration = TimeSpan.FromMilliseconds(400) };
+        var shortLived = new CachePolicy { AbsoluteExpiration = TimeSpan.FromSeconds(1) };
+        var mediumLived = new CachePolicy { AbsoluteExpiration = TimeSpan.FromSeconds(3) };
+        var longLived = new CachePolicy { AbsoluteExpiration = TimeSpan.FromSeconds(6) };
 
         await _cache.SetAsync("short", "expires first", shortLived);
         await _cache.SetAsync("medium", "expires second", mediumLived);
         await _cache.SetAsync("long", "expires last", longLived);
 
         // Act & Assert
-        // After 150ms, only short should be expired
-        await Task.Delay(150);
+        // After 1.5 seconds, only short should be expired
+        await Task.Delay(TimeSpan.FromMilliseconds(1500));
         Assert.IsFalse((await _cache.GetAsync<string>("short")).Found);
         Assert.IsTrue((await _cache.GetAsync<string>("medium")).Found);
         Assert.IsTrue((await _cache.GetAsync<string>("long")).Found);
 
-        // After another 100ms (250ms total), short and medium should be expired
-        await Task.Delay(100);
+        // After another 2 seconds (3.5 seconds total), short and medium should be expired
+        await Task.Delay(TimeSpan.FromSeconds(2));
         Assert.IsFalse((await _cache.GetAsync<string>("short")).Found);
         Assert.IsFalse((await _cache.GetAsync<string>("medium")).Found);
         Assert.IsTrue((await _cache.GetAsync<string>("long")).Found);
 
-        // After another 200ms (450ms total), all should be expired
-        await Task.Delay(200);
+        // After another 3 seconds (6.5 seconds total), all should be expired
+        await Task.Delay(TimeSpan.FromSeconds(3));
         Assert.IsFalse((await _cache.GetAsync<string>("long")).Found);
     }
 

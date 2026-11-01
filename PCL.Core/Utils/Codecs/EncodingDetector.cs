@@ -6,6 +6,11 @@ namespace PCL.Core.Utils.Codecs;
 
 public static class EncodingDetector
 {
+    static EncodingDetector()
+    {
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+    }
+
     /// <summary>
     /// 检测流中的文本编码方式（支持 Seek 的流）
     /// </summary>
@@ -20,11 +25,12 @@ public static class EncodingDetector
             throw new ArgumentException("流必须支持 Seek 操作");
 
         var originalPosition = stream.Position;
-        if (readFromBegin) stream.Seek(0, SeekOrigin.Begin);
+        var detectionPosition = readFromBegin ? 0 : originalPosition;
+        if (readFromBegin) stream.Seek(detectionPosition, SeekOrigin.Begin);
 
         try
         {
-            return _DetectByBom(stream, originalPosition) ?? _DetectWithoutBOM(stream, originalPosition) ?? Encoding.Default;
+            return _DetectByBom(stream, detectionPosition) ?? _DetectWithoutBOM(stream, detectionPosition) ?? Encoding.Default;
         }
         finally
         {
@@ -43,24 +49,20 @@ public static class EncodingDetector
     private static Encoding? _DetectByBom(Stream stream, long originalPosition)
     {
         stream.Position = originalPosition;
-        // 获取最长样本长度
-        var readableLength = stream.Length - stream.Position;
-        var sampleLength = Math.Min(readableLength, 4);
-        var buffer = new byte[sampleLength];
-        var actualRead = stream.Read(buffer, 0, buffer.Length);
-        if (actualRead != sampleLength) throw new Exception("无法获取样本长度");
+        var buffer = _ReadSample(stream, originalPosition, 4);
+        var sampleLength = buffer.Length;
 
         // 对样本进行分析
-        if (sampleLength >= 3 && buffer is [0xef, 0xbb, 0xbf])
+        if (sampleLength >= 3 && buffer[0] == 0xef && buffer[1] == 0xbb && buffer[2] == 0xbf)
             return Encoding.UTF8; // UTF-8
 
         if (sampleLength >= 2)
         {
-            if (buffer is [0xfe, 0xff])
+            if (buffer[0] == 0xfe && buffer[1] == 0xff)
                 return Encoding.BigEndianUnicode; // UTF-16 BE
-            if (buffer is [0xff, 0xfe])
+            if (buffer[0] == 0xff && buffer[1] == 0xfe)
             {
-                if (sampleLength >= 4 && buffer is [_, _, 0x00, 0x00])
+                if (sampleLength >= 4 && buffer[2] == 0x00 && buffer[3] == 0x00)
                     return Encoding.UTF32; // UTF-32 LE
                 return Encoding.Unicode;   // UTF-16 LE
             }
@@ -68,9 +70,9 @@ public static class EncodingDetector
 
         if (sampleLength >= 4)
         {
-            if (buffer is [0x00, 0x00, 0xfe, 0xff])
+            if (buffer[0] == 0x00 && buffer[1] == 0x00 && buffer[2] == 0xfe && buffer[3] == 0xff)
                 return Encoding.GetEncoding("utf-32BE"); // UTF-32 BE
-            if (buffer is [0xff, 0xfe, 0x00, 0x00])
+            if (buffer[0] == 0xff && buffer[1] == 0xfe && buffer[2] == 0x00 && buffer[3] == 0x00)
                 return Encoding.UTF32; // UTF-32 LE
         }
 
@@ -82,26 +84,41 @@ public static class EncodingDetector
     /// </summary>
     private static Encoding? _DetectWithoutBOM(Stream stream, long originalPosition)
     {
-        // 尝试验证是否为有效 UTF-8
-        return _IsValidUtf8(stream, originalPosition) ? Encoding.UTF8 : null;
+        var sample = _ReadSample(stream, originalPosition, 1024);
+        if (_IsValidEncoding(new UTF8Encoding(false, true), sample))
+            return Encoding.UTF8;
+
+        var gb2312 = Encoding.GetEncoding("gb2312", EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback);
+        return _IsValidEncoding(gb2312, sample) ? Encoding.GetEncoding("gb2312") : null;
     }
 
-    /// <summary>
-    /// 验证流内容是否为合法 UTF-8（通过 round-trip 验证）
-    /// </summary>
-    private static bool _IsValidUtf8(Stream stream, long originalPosition)
+    private static byte[] _ReadSample(Stream stream, long position, int maxLength)
     {
-        const int sampleSize = 1024;
-        var buffer = new byte[sampleSize];
-        stream.Position = originalPosition;
+        stream.Position = position;
+        var sampleLength = (int)Math.Min(stream.Length - position, maxLength);
+        var buffer = new byte[sampleLength];
+        var offset = 0;
+        while (offset < buffer.Length)
+        {
+            var read = stream.Read(buffer, offset, buffer.Length - offset);
+            if (read == 0) break;
+            offset += read;
+        }
 
+        return offset == buffer.Length ? buffer : buffer[..offset];
+    }
+
+    private static bool _IsValidEncoding(Encoding encoding, byte[] bytes)
+    {
         try
         {
-            var decoded = Encoding.UTF8.GetString(buffer);
-            var roundTrip = Encoding.UTF8.GetBytes(decoded);
-            return roundTrip.SequenceEqual(buffer);
+            return encoding.GetBytes(encoding.GetString(bytes)).AsSpan().SequenceEqual(bytes);
         }
-        catch
+        catch (DecoderFallbackException)
+        {
+            return false;
+        }
+        catch (EncoderFallbackException)
         {
             return false;
         }

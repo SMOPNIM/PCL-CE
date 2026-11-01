@@ -27,7 +27,7 @@ public class DoHQueryTest
     public async Task TestSrvQuery()
     {
         var query = DnsQuery.Instance;
-        var addr = await query.QueryAsync("_minecraft._tcp.mc.hdeda6e85.nyat.app", DnsQueryType.SRV, TestContext.CancellationTokenSource.Token);
+        var addr = await query.QueryAsync("_xmpp-server._tcp.jabber.org", DnsQueryType.SRV, TestContext.CancellationTokenSource.Token);
         Assert.IsNotNull(addr);
         Assert.IsGreaterThan(0, addr.Answers.Count);
         Assert.AreEqual(DnsQueryClass.IN, addr.Header.QueryClass);

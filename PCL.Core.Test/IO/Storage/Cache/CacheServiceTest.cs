@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Data.Sqlite;
 using PCL.Core.IO.Storage.Cache;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,13 @@ public class CacheServiceTest
         if (_cache != null)
         {
             await _cache.DisposeAsync().ConfigureAwait(false);
+        }
+
+        using (var defaultPoolConnection = new SqliteConnection($"Data Source={_options.DatabasePath}"))
+        using (var explicitPoolConnection = new SqliteConnection($"Data Source={_options.DatabasePath};Pooling=True"))
+        {
+            SqliteConnection.ClearPool(defaultPoolConnection);
+            SqliteConnection.ClearPool(explicitPoolConnection);
         }
 
         // Clean up the test directory

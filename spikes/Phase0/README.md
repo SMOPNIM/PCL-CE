@@ -6,6 +6,8 @@
 |---|---|---|
 | [AvaloniaProbe](AvaloniaProbe/README.md) | 1. Avalonia 版本、启动、Linux IME | Wayland + fcitx5 实测通过；X11/ibus 未覆盖 |
 | [SecretStoreProbe](SecretStoreProbe/README.md) | 3. Secret Service 与 AES 文件 fallback | 两种路径探针实测通过；仅为 Phase 0 探针，不代表生产实现 |
+| [AppImageProbe](AppImageProbe/README.md) | 8. AppImage/FUSE 启动机制 | Ubuntu 22.04.5 正常 FUSE 与显式 extract-and-run 无头 smoke 通过；非 PCL 产物，未在无 FUSE 主机验证 |
+| [OAuthLoopbackProbe](OAuthLoopbackProbe/README.md) | 2. Microsoft browser OAuth/PKCE/loopback | 固定 redirect 版本已部署到 Ubuntu；等待登记 `http://localhost:8400/` 后桌面交互测试 |
 
 后续探针建议：
 

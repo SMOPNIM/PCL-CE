@@ -34,7 +34,7 @@
 | 5 | 下载服务 | 代理、重试、限速、校验和、镜像切换可用 | Windows（可先行） | NOT STARTED |
 | 6 | 自定义标题栏 | GNOME X11/Wayland 至少一个可用；否则接受系统装饰降级 | Linux GNOME | NOT STARTED |
 | 7 | 200 Mod 列表 | 首屏 < 1s，完整解析 < 3s | 基准硬件 | NOT STARTED |
-| 8 | AppImage | 干净 Ubuntu 可运行；无 FUSE 时 `--appimage-extract-and-run` 可用 | Ubuntu 22.04 | **BLOCKED** |
+| 8 | AppImage | 干净 Ubuntu 可运行；无 FUSE 时 `--appimage-extract-and-run` 可用 | Ubuntu 22.04 | **PARTIAL** |
 | 9 | 原版启动 | 1.20.1 在 Ubuntu 启动成功 | Ubuntu + Java 21 | **BLOCKED** |
 | 10 | 性能基线 | 记录冷启动、内存、扫描、滚动数据 | 基准硬件 | NOT STARTED |
 
@@ -61,12 +61,12 @@ Windows 版本、构建和无头启动证据见 [2026-10-31 验证记录](eviden
 
 ### 验证 2、3、4、8、9 的准备检查
 
-2026-11-01 在 Ubuntu 22.04.5 虚拟机检查后，验证 2、4、8、9 仍没有可执行的产品入口或目标产物，具体检查记录见[测试准备检查证据](evidence/2026-11-01-linux-test-readiness.md)。验证 3 后续通过独立探针完成了 Secret Service 与 fallback 环境测试，结果见[验证 3 实测证据](evidence/2026-11-01-secret-store-ubuntu.md)。验证 2、4、8、9 标记为 `BLOCKED`，不是测试失败：
+2026-11-01 在 Ubuntu 22.04.5 虚拟机完成探针准备和部分实测，具体检查记录见[测试准备检查证据](evidence/2026-11-01-linux-test-readiness.md)。验证 3 的独立探针结果见[验证 3 实测证据](evidence/2026-11-01-secret-store-ubuntu.md)。验证 2、4、8、9 尚未通过：
 
-- 验证 2：仓库尚无跨平台登录实现/探针，也未准备 OAuth 测试应用。
+- 验证 2：仅供 Phase 0 的 [OAuthLoopbackProbe](../../../spikes/Phase0/OAuthLoopbackProbe/README.md) 已按固定 loopback URI `http://localhost:8400/` 重建并部署到 Ubuntu；用户运行时 Microsoft 返回 `invalid_request`，提示请求 URI 未在该 Client ID 对应的应用注册中登记。需逐字符核对 **Mobile and desktop applications** 下的 URI（包括尾部 `/`）以及 `PHASE0_MS_REDIRECT_URI` 环境变量，修正后重跑授权与 token exchange。该探针不持久化 token，也不验证生产登录/密钥存储集成。
 - 验证 3：仅用于 Phase 0 的 [SecretStoreProbe](../../../spikes/Phase0/SecretStoreProbe/README.md) 已通过桌面 Secret Service 与无 D-Bus fallback 存取测试，权限符合要求；生产代码尚无 `ISecretStore` 或 Linux fallback，因此整体状态为 `PARTIAL`。
-- 验证 4：当前只有 Java 21；尚未准备 Java 17、Forge 安装器与对应启动器流程。
-- 验证 8：尚无 AppImage 产物；当前 VM 有 `/dev/fuse`，无 FUSE 回退也需要在隔离环境验证。
+- 验证 4：Ubuntu 已安装 Java 17/21，官方 Forge 1.20.1-47.4.0 安装器已准备；安装器在 TLS 证书检查阶段等待超过 10 分钟并超时，未生成版本。详见[Forge 安装器尝试记录](evidence/2026-11-01-forge-installer-ubuntu.md)。
+- 验证 8：已用 AvaloniaProbe 生成 AppImage 并通过正常 FUSE/显式 extract-and-run 无头 smoke；用户确认两条 GUI 路径均能成功打开窗口。该探针不是 PCL 产物，VM 有 `/dev/fuse`，无 FUSE 主机和 PCL 打包仍未验证。详见[AppImage 探针证据](evidence/2026-11-01-appimage-probe-ubuntu.md)。
 - 验证 9：仓库没有 Linux 启动链，VM 也没有 Minecraft 1.20.1 安装数据。游戏启动需使用用户自己的合法账号，不在此收集或传递凭据。
 
 ## 3. 环境缺口
@@ -79,33 +79,30 @@ Windows 版本、构建和无头启动证据见 [2026-10-31 验证记录](eviden
 | Java 8/17/21 矩阵 | 未准备 | 验证 4、9 |
 | 4 核 / 8GB / SATA SSD 基准机 | 未固化 | 验证 7、10 |
 | 200 Mod 测试库 | 未准备 | 验证 7 |
-| 微软 OAuth 测试应用/账号 | 未准备 | 验证 2 |
+| 微软 OAuth 应用登记 | 已有应用；需登记 `http://localhost:8400/` 并从 VM 桌面登录 | 验证 2 |
 | Windows 旧版数据样本 | 未准备 | Phase 1/2 兼容回归 |
 
 ## 4. 本轮已完成的启动工作
 
 - 固化估算口径、WBS、日历和 Gate 规则（`docs/cross-platform-v2/`）。
 - 完成当前代码基线审计：Core 46,361 行、WPF 引用 67 个文件、现有构建 0 error / 5,382 warnings。
-- 完成测试基线：209 passed / 47 failed / 256 total；失败集中在 SQLite 文件锁、静态初始化和测试隔离，需在 Phase 1 前分类（[证据](evidence/2026-10-31-test-baseline.md)）。
+- 复测并分类 Windows 测试基线：256 passed / 1 failed / 257 total；已修复缓存生命周期、SQLite 清理、过期精度、哈希流内容、编码检测及测试初始化问题。唯一剩余失败为 `zh-TW.xaml` 缺少 57 个新资源键（[复测证据](evidence/2026-11-01-test-rerun.md)；[原始迁移前基线](evidence/2026-10-31-test-baseline.md)）。
 - 建立 Avalonia 12.1.4 探针工程和 Linux 无头 CI 入口。
 - 确认当前代码库没有目标平台接口、没有 Avalonia 依赖、Linux 运行时验证为空。
 
-本轮**没有修改生产代码**，符合“Gate 0 前不进入 Phase 1”的约束。
+本轮修复了测试复测暴露的 Core 缺陷，但没有开始跨平台架构迁移或 Phase 1 功能开发；Gate 0 仍未通过。
 
 ## 5. 下一步（按优先级）
 
-1. 在 Ubuntu 桌面补测 GNOME X11、ibus 组合，记录与已通过的 Wayland + fcitx5 结果差异。
-2. 先为验证 2、3、4、8、9 准备可测探针/产物和隔离环境，再执行相应 Linux 测试。
-3. 如需补测 IME，在 Linux 上运行 `spikes/Phase0/AvaloniaProbe`，记录：
-   - 主窗口 TextBox 中文输入；
-   - 首次打开的对话框 TextBox 中文输入；
-   - 切换窗口后是否恢复；
-   - `AVALONIA_IM_MODULE=fcitx` / `ibus` 差异；
-   - X11 与 Wayland 差异。
-4. 冻结 P0 页面清单和 `PCL.Core` / `PCL.UI` / `PCL.Platform.*` 边界，回填 WBS。
-5. 启动验证 5（下载服务）和验证 7/10（性能基准）的 Windows 侧工作，这两项不依赖 Linux。
-6. 准备微软 OAuth 测试应用与旧版数据样本。
-7. 每周更新本执行板；Gate 0 评审时附全部原始日志、截图和命令。
+1. 在 Ubuntu GNOME 桌面登记 `http://localhost:8400/` 后运行已部署的 OAuth 探针；完成微软授权、loopback 回调与 token exchange 检查。
+2. 在桌面运行 AppImage 正常 GUI 与显式 `--appimage-extract-and-run` GUI，记录窗口结果；随后安排无 FUSE 环境验证。
+3. 排查 Java 到 Forge Maven 的 TLS 握手等待；不得关闭证书校验。修复网络后重跑 Forge 安装器。
+4. 在 Ubuntu 桌面补测 GNOME X11、ibus 组合，记录与已通过的 Wayland + fcitx5 结果差异。
+5. 如需扩充 IME 覆盖，在 X11/ibus 与 Wayland/fcitx5 下分别记录主窗口、首次打开对话框、切换窗口后的中文输入行为。
+6. 冻结 P0 页面清单和 `PCL.Core` / `PCL.UI` / `PCL.Platform.*` 边界，回填 WBS。
+7. 补齐 `zh-TW.xaml` 缺少的 57 个资源键并重跑全量测试；继续保留真实失败，不通过 quarantine 隐藏。
+8. 启动验证 5（下载服务）和验证 7/10（性能基准）的 Windows 侧工作，这两项不依赖 Linux。
+9. 准备旧版数据样本；每周更新执行板，并在 Gate 0 评审时附日志、截图和命令。
 
 ## 6. 证据约定
 
@@ -120,7 +117,7 @@ Windows 版本、构建和无头启动证据见 [2026-10-31 验证记录](eviden
 |---|---|---|---|---|
 | Linux IME 受 Avalonia #22315 影响 | 中 | 高 | Phase 0 实测；准备延迟聚焦、启动强制焦点、XWayland 降级；失败则暂停 Phase 1 | 跟踪中 |
 | Core 去 WPF 复杂度高于估算 | 高 | 中高 | Phase 0 结束前拆分 `PCL.Core` / `PCL.UI` / `PCL.Platform.*`，B 包暂定上调至 3.5–5.0 人月 | 已登记 |
-| 47 个测试失败污染 QA 基线 | 高 | 中 | Phase 0 内完成分类；Phase 1 前修复阻塞类，其余隔离/标记 | 分类中 |
+| QA 基线仍有失败 | 中 | 中 | SQLite/哈希/编码/测试宿主问题已处理；补齐 zh-TW 的 57 个新资源键并重跑全量测试 | 剩余 1 项 |
 | Linux 桌面组合覆盖不足导致 Gate 0 证据不完整 | 中 | 高 | Ubuntu 22.04.5 GNOME Wayland 已可用；继续补测 X11、ibus 和其余 Linux Gate 项 | 跟踪中 |
 | 自定义标题栏在 Wayland 不可用 | 中 | 中 | Phase 0 实测；失败则按计划降级为系统装饰并更新 P0 验收 | 待验证 |
 | AppImage 无 FUSE 环境不可运行 | 中 | 中 | Phase 0 实测 `--appimage-extract-and-run`；准备 libfuse2 文档 | 待验证 |

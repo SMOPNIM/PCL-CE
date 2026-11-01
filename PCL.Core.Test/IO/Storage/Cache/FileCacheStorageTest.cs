@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PCL.Core.Test.IO.Storage.Cache;
@@ -283,6 +284,54 @@ public class FileCacheStorageTest
         using var ms = new MemoryStream();
         await retrieved.CopyToAsync(ms);
         CollectionAssert.AreEqual(largeContent, ms.ToArray());
+    }
+
+    [TestMethod]
+    public async Task StoreNonSeekableStream_ShouldPreserveContent()
+    {
+        var expectedContent = "non-seekable input content"u8.ToArray();
+        await using var input = new NonSeekableReadStream(new MemoryStream(expectedContent));
+
+        var hash = await _fileCache.StoreAsync(input);
+        using var retrieved = _fileCache.Retrieve(hash);
+
+        Assert.IsNotNull(retrieved);
+        using var result = new MemoryStream();
+        await retrieved.CopyToAsync(result);
+        CollectionAssert.AreEqual(expectedContent, result.ToArray());
+    }
+
+    private sealed class NonSeekableReadStream(Stream inner) : Stream
+    {
+        public override bool CanRead => inner.CanRead;
+        public override bool CanSeek => false;
+        public override bool CanWrite => false;
+        public override long Length => throw new NotSupportedException();
+        public override long Position
+        {
+            get => throw new NotSupportedException();
+            set => throw new NotSupportedException();
+        }
+
+        public override int Read(byte[] buffer, int offset, int count) => inner.Read(buffer, offset, count);
+        public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default) =>
+            inner.ReadAsync(buffer, cancellationToken);
+        public override void Flush() => throw new NotSupportedException();
+        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+        public override void SetLength(long value) => throw new NotSupportedException();
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) inner.Dispose();
+            base.Dispose(disposing);
+        }
+
+        public override async ValueTask DisposeAsync()
+        {
+            await inner.DisposeAsync().ConfigureAwait(false);
+            GC.SuppressFinalize(this);
+        }
     }
 
     #endregion
