@@ -219,12 +219,20 @@ public sealed partial class ThemeService
     }
 
     /// <summary>
-    /// 推进“真·滑稽彩”的随机配色。由界面主时钟定期调用。
+    /// 推进动态经典主题（12 号滑稽彩与 44 号真·滑稽彩）。由界面主时钟定期调用。
     /// </summary>
-    public static void TickRandomClassicTheme()
+    public static void TickClassicThemeAnimation()
     {
-        if (!IsClassicThemeMode ||
-            Config.Preference.Theme.ThemeSelected != PclThemeCatalog.TrueComicalColorThemeId) return;
+        if (!IsClassicThemeMode) return;
+
+        if (Config.Preference.Theme.ThemeSelected == 12)
+        {
+            if (!PclThemeRuntime.AdvanceTheme12()) return;
+            _InvokeClassicThemeChanged();
+            return;
+        }
+
+        if (Config.Preference.Theme.ThemeSelected != PclThemeCatalog.TrueComicalColorThemeId) return;
 
         PclThemeRuntime.RandomizeCurrent();
         _InvokeClassicThemeChanged();

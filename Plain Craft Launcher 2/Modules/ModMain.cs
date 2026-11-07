@@ -131,9 +131,9 @@ public static class ModMain
             timer4Count = 0;
             try
             {
-                #region 每 250ms 执行一次的代码
+                #region 每 200ms 执行一次的代码
 
-                ThemeService.TickRandomClassicTheme();
+                ThemeService.TickClassicThemeAnimation();
             }
 
             #endregion

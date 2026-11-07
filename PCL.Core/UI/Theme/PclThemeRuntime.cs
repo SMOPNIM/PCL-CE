@@ -8,7 +8,8 @@ namespace PCL.Core.UI.Theme;
 /// 经典主题运行时：负责调色板缓存、主题 14 的实时参数、主题 12 的随机游走以及主题 44 的随机闪烁。
 /// <para>
 /// <see cref="RefreshPalette"/> 只会在“切换到 12 号主题”时推进一步随机游走，
-/// 重复刷新不会继续推进；因此 <c>ThemeManager</c> 可以安全地反复读取当前调色板。
+/// 之后的推进由 <see cref="AdvanceTheme12"/> 在主时钟上完成；
+/// 重复刷新不会继续推进，因此 <c>ThemeManager</c> 可以安全地反复读取当前调色板。
 /// </para>
 /// </summary>
 public static class PclThemeRuntime
@@ -61,17 +62,11 @@ public static class PclThemeRuntime
             switch (definition.Id)
             {
                 case 12:
-                    if (!_theme12Seeded)
-                    {
-                        _theme12Hue = Random.Shared.Next(0, 360);
-                        _theme12Step = (Random.Shared.Next(0, 2) * 2 - 1) * 4;
-                        _theme12Seeded = true;
-                    }
+                    if (!_theme12Seeded) SeedTheme12();
 
                     if (_lastThemeId != 12)
                     {
-                        _theme12Hue = (_theme12Hue + _theme12Step) % 360;
-                        if (_theme12Hue < 0) _theme12Hue += 360;
+                        StepTheme12();
                         Cache.Remove(12);
                     }
 
@@ -134,6 +129,39 @@ public static class PclThemeRuntime
             else Cache.Clear();
             _current = null;
         }
+    }
+
+    /// <summary>
+    /// 推进 12 号“滑稽彩”的色相。由界面主时钟定期调用。
+    /// </summary>
+    /// <returns>当前是否选中了 12 号主题。</returns>
+    public static bool AdvanceTheme12()
+    {
+        lock (SyncRoot)
+        {
+            if (Config.Preference.Theme.ThemeSelected != 12) return false;
+
+            if (!_theme12Seeded) SeedTheme12();
+            // 标记为当前主题，避免随后的 RefreshPalette 再推进一次
+            _lastThemeId = 12;
+            StepTheme12();
+            Cache.Remove(12);
+            _current = null;
+            return true;
+        }
+    }
+
+    private static void SeedTheme12()
+    {
+        _theme12Hue = Random.Shared.Next(0, 360);
+        _theme12Step = (Random.Shared.Next(0, 2) * 2 - 1) * 4;
+        _theme12Seeded = true;
+    }
+
+    private static void StepTheme12()
+    {
+        _theme12Hue = (_theme12Hue + _theme12Step) % 360;
+        if (_theme12Hue < 0) _theme12Hue += 360;
     }
 
     /// <summary>
