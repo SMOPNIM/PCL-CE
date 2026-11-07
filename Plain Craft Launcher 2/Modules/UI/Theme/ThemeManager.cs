@@ -91,7 +91,7 @@ public static class ThemeManager
             else
             {
                 // 原版经典主题的纯色背景
-                ModMain.frmMain.PanForm.Background = new SolidColorBrush(Color.FromRgb(250, 250, 250));
+                ModMain.frmMain.PanForm.Background = new SolidColorBrush(Color.FromRgb(245, 245, 245));
             }
         }
         else if (Config.Preference.Background.BackgroundColorful)

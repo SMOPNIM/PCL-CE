@@ -53,9 +53,9 @@ public class PclThemeTest
         Assert.AreEqual(-0.1d, palette.BackgroundStops[0].Offset);
         Assert.AreEqual(0.4d, palette.BackgroundStops[1].Offset);
         Assert.AreEqual(1.1d, palette.BackgroundStops[2].Offset);
-        AssertColor(177, 207, 213, palette.BackgroundStops[0].Color);
-        AssertColor(203, 225, 248, palette.BackgroundStops[1].Color);
-        AssertColor(192, 197, 221, palette.BackgroundStops[2].Color);
+        AssertColor(202, 234, 245, palette.BackgroundStops[0].Color);
+        AssertColor(211, 229, 247, palette.BackgroundStops[1].Color);
+        AssertColor(219, 226, 248, palette.BackgroundStops[2].Color);
     }
 
     [TestMethod]

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace PCL.Core.UI.Theme;
@@ -78,9 +77,9 @@ public sealed class PclThemePalette
         var titlebarStops = CreateTitlebarStops(definition, hue, saturation, lightAdjust, custom);
         var backgroundStops = new PclColorStop[]
         {
-            new(-0.1d, Hsl(hue - 20d, Math.Min(60d, saturation) * 0.5d, 80d)),
-            new(0.4d, Hsl(hue, saturation * 0.9d, 90d)),
-            new(1.1d, Hsl(hue + 20d, Math.Min(60d, saturation) * 0.5d, 80d))
+            new(-0.1d, Hsl(hue - 15d, saturation * 0.8d, 91d)),
+            new(0.4d, Hsl(hue, saturation * 0.8d, 91d)),
+            new(1.1d, Hsl(hue + 15d, saturation * 0.8d, 91d))
         };
 
         return new PclThemePalette
