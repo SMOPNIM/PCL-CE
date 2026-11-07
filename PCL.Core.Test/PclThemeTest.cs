@@ -21,7 +21,7 @@ public class PclThemeTest
         AssertColor(60, 150, 239, palette.Color4);
         AssertColor(144, 195, 246, palette.Color5);
         AssertColor(205, 228, 251, palette.Color6);
-        AssertColor(222, 237, 252, palette.Color7);
+        AssertColor(227, 240, 253, palette.Color7);
         AssertColor(238, 246, 254, palette.Color8);
         AssertColor(115, 171, 227, palette.Background0);
     }
@@ -34,7 +34,7 @@ public class PclThemeTest
 
         Assert.AreEqual(190, palette.Background1.AlphaByte);
         Assert.AreEqual(1, palette.SemiTransparent.AlphaByte);
-        AssertColor(222, 237, 252, palette.Background1);
+        AssertColor(227, 240, 253, palette.Background1);
         AssertColor(238, 246, 254, palette.SemiTransparent);
     }
 

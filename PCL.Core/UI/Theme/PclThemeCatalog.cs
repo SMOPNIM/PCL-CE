@@ -147,7 +147,7 @@ public static class PclThemeCatalog
             TooltipKey = "Setup.Ui.ClassicTheme.Tooltip.42",
             SelectorRow = 3, SelectorColumn = 1,
             Hue = 225, Saturation = 60, LightAdjust = -15, TitlebarMode = PclTitlebarMode.Standard,
-            UnlockKind = PclThemeUnlockKind.ConfigOnly, UnlockRequirement = "hidden selector"
+            UnlockKind = PclThemeUnlockKind.Always, UnlockRequirement = "allowlist"
         },
         new()
         {

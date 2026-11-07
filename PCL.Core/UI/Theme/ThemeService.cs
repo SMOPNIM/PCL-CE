@@ -93,6 +93,7 @@ public sealed partial class ThemeService
     private static void _Start()
     {
         IsClassicThemeMode = _IsClassicThemeEnabled();
+        if (IsClassicThemeMode) _ResetInvalidClassicThemeSelection();
         IsDarkMode = IsClassicThemeMode ? false : _IsDarkMode();
         _LogStatus();
         _RefreshAll();
@@ -115,6 +116,19 @@ public sealed partial class ThemeService
     private static bool _IsClassicThemeEnabled() =>
         Config.Preference.Theme.UseClassicTheme ||
         Config.Preference.Theme.ThemeSelected == PclThemeCatalog.StarryBlueThemeId;
+
+    /// <summary>
+    /// 经典模式下若保存的主题 ID 不存在，则按原版 <c>ThemeCheckAll</c> 的行为重置为默认主题。
+    /// 关闭经典模式时不重置，以免丢失用户保存的经典主题选择。
+    /// </summary>
+    private static void _ResetInvalidClassicThemeSelection()
+    {
+        var selected = Config.Preference.Theme.ThemeSelected;
+        if (PclThemeCatalog.GetById(selected) is not null) return;
+
+        Context.Warn($"检测到未定义的主题：{selected}，已重置为默认主题");
+        Config.Preference.Theme.ThemeSelected = 0;
+    }
 
     /// <summary>
     /// 当前是否为深色主题。
@@ -191,6 +205,7 @@ public sealed partial class ThemeService
 
         IsClassicThemeMode = enabled;
         IsDarkMode = enabled ? false : _IsDarkMode();
+        if (enabled) _ResetInvalidClassicThemeSelection();
         if (!enabled) PclThemeRuntime.ResetCurrentThemeTracking();
         Context.Info(enabled ? "已启用经典主题模式" : "已关闭经典主题模式");
         _LogStatus();
@@ -347,6 +362,21 @@ public sealed partial class ThemeService
     private static CatColorResource[] DarkGrayCache { get => field ??= _CalculateGrays(ToneProfiles.Dark); set; } = null!;
 
     /// <summary>
+    /// 2.99 原版 <c>Application.xaml</c> 中的静态灰阶，经典主题固定使用这些值。
+    /// </summary>
+    private static readonly CatColorResource[] ClassicGrayCache =
+    [
+        new PclColor(0x40, 0x40, 0x40).ToCatColor("Gray1"),
+        new PclColor(0x73, 0x73, 0x73).ToCatColor("Gray2"),
+        new PclColor(0x8C, 0x8C, 0x8C).ToCatColor("Gray3"),
+        new PclColor(0xA6, 0xA6, 0xA6).ToCatColor("Gray4"),
+        new PclColor(0xCC, 0xCC, 0xCC).ToCatColor("Gray5"),
+        new PclColor(0xEB, 0xEB, 0xEB).ToCatColor("Gray6"),
+        new PclColor(0xF0, 0xF0, 0xF0).ToCatColor("Gray7"),
+        new PclColor(0xF5, 0xF5, 0xF5).ToCatColor("Gray8")
+    ];
+
+    /// <summary>
     /// 清除灰度配色的计算缓存。
     /// </summary>
     public static void InvalidateGrayCache()
@@ -362,6 +392,10 @@ public sealed partial class ThemeService
     {
         var cache = IsDarkMode ? DarkGrayCache : LightGrayCache;
         foreach (var c in cache) c.Apply();
+
+        // 经典主题固定使用原版静态灰阶，覆盖 CE 的 OKLCH 灰阶
+        if (!IsClassicThemeMode) return;
+        foreach (var c in ClassicGrayCache) c.Apply();
     }
 
     /// <summary>

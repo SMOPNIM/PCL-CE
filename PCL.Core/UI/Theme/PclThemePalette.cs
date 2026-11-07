@@ -66,7 +66,7 @@ public sealed class PclThemePalette
         var color4 = Hsl(hue, saturation, 65d + lightAdjust);
         var color5 = Hsl(hue, saturation, 80d + lightAdjust * 0.4d);
         var color6 = Hsl(hue, saturation, 91d + lightAdjust * 0.1d);
-        var color7 = Hsl(hue, saturation, 94d);
+        var color7 = Hsl(hue, saturation, 95d);
         var color8 = Hsl(hue, saturation, 97d);
 
         var background0 = new PclColor(
