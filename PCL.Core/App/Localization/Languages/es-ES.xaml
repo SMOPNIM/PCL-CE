@@ -10,4 +10,53 @@
     <sys:String x:Key="Meta.Code">es-ES</sys:String>
     <sys:String x:Key="Meta.Name">Español (España)</sys:String>
 
+    <!-- Setup.Ui.Theme -->
+
+    <sys:String x:Key="Setup.Ui.Theme.Mode">Modo de color</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.System">Sistema de temas</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.System.CE">PCL-CE</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.System.Classic">PCL original</sys:String>
+
+    <!-- Setup.Ui.ClassicTheme -->
+
+    <sys:String x:Key="Setup.Ui.ClassicTheme.LightHint">Los temas clásicos solo tienen colores claros. Al activarlos, el lanzador cambia temporalmente al modo claro sin modificar tu ajuste de modo oscuro; tu modo de color original se restaura al desactivarlos.</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Theme">Temas</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Hidden">Temas ocultos</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.BigHidden">Grandes temas ocultos</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.0">Azul Totoro</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.1">Cian lima dulce</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.2">Verde hierba</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.3">Amarillo piña</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.4">Marrón roble</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.5">Negro místico</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.6">Rosa hierro</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.7">Púrpura místico</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.8">Oro otoñal</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.9">Naranja activo</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.10">Rojo retraso</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.11">Azul geek</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.12">Color cómico</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.13">Color afortunado</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.14">Personalizado</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.42">42</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.43">Blanco cegador</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.44">Color cómico verdadero</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.42">Azul estrellado</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.43">Tan brillante que apenas se distingue ningún color</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.44">Los colores cambian aleatoriamente en cada actualización. Cuidado con el parpadeo.</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.5">El gris es una mentira</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.6">La alegría de 99 reencuentros</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.7">072 101 108 112 032 068 101 118 032 048 046 052 046 052</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.8">Condición de desbloqueo original: donar un total acumulado de ¥23,33 y luego enviar [Patata {identify}] a la cuenta de Afdian (ya desbloqueado en esta versión)</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.9">Condiciones de desbloqueo originales:&#xA;· Reportar un error y responder con tu código de identificación cuando se marque como [Completado] (clic derecho para abrir la página de comentarios)&#xA;· Enviar una Pull Request o un preajuste de página de inicio y responder con tu código de identificación cuando se marque como [Completado]&#xA;Ya desbloqueado en esta versión.</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.10">Condición de desbloqueo original: iniciar sesión con una cuenta oficial de Microsoft para apoyar el juego oficial (ya desbloqueado en esta versión)</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.11">Condición de desbloqueo original: clic derecho para abrir la entrada del rompecabezas (ya desbloqueado en esta versión)</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.12">Árbol cómico, fruto cómico; bajo el árbol cómico, tú y yo. En el día cómico hacemos travesuras, ¡qué diversión!</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.13">Este debe ser el legendario afortunado</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.14">Condición de desbloqueo original: desbloquear cinco temas ocultos (ya desbloqueado en esta versión)</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Hue">Tono</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Delta">Degradado de tono</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Sat">Saturación</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Light">Luminosidad</sys:String>
+
 </ResourceDictionary>

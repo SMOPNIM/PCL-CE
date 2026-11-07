@@ -432,4 +432,53 @@
     <sys:String x:Key="Launch.Homepage.LoadFailed.Retry">Réessayer</sys:String>
     <sys:String x:Key="Launch.Homepage.SlowWarning">Le chargement de la page d'accueil est trop lent ({0} secondes). Veuillez signaler ce problème à l'auteur de la page d'accueil, ou cesser temporairement d'utiliser cette page.</sys:String>
 
+    <!-- Setup.Ui.Theme -->
+
+    <sys:String x:Key="Setup.Ui.Theme.Mode">Mode de couleurs</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.System">Système de thèmes</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.System.CE">PCL-CE</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.System.Classic">PCL original</sys:String>
+
+    <!-- Setup.Ui.ClassicTheme -->
+
+    <sys:String x:Key="Setup.Ui.ClassicTheme.LightHint">Les thèmes classiques sont uniquement clairs. Les activer fait temporairement passer le lanceur en mode clair sans modifier votre réglage de mode sombre ; votre mode de couleurs d'origine est restauré lorsque vous les désactivez.</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Theme">Thèmes</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Hidden">Thèmes cachés</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.BigHidden">Grands thèmes cachés</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.0">Bleu Totoro</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.1">Cyan citron vert</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.2">Vert gazon</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.3">Jaune ananas</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.4">Brun chêne</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.5">Noir mystique</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.6">Rose fer</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.7">Violet mystique</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.8">Or d'automne</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.9">Orange actif</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.10">Rouge retard</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.11">Bleu geek</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.12">Couleur comique</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.13">Couleur chanceuse</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.14">Personnalisé</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.42">42</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.43">Blanc aveuglant</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.44">Vraie couleur comique</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.42">Bleu étoilé</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.43">Si lumineux qu'on ne distingue presque aucune couleur</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.44">Les couleurs changent aléatoirement à chaque actualisation. Attention au clignotement.</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.5">Le gris est un mensonge</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.6">La joie de 99 retrouvailles</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.7">072 101 108 112 032 068 101 118 032 048 046 052 046 052</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.8">Condition de déblocage d'origine : faire un don cumulé de 23,33 ¥, puis envoyer [Patate {identify}] au compte Afdian (déjà débloqué dans cette version)</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.9">Conditions de déblocage d'origine :&#xA;· Signaler un bug et répondre avec votre code d'identification une fois marqué [Terminé] (clic droit pour ouvrir la page de retours)&#xA;· Soumettre une Pull Request ou un préréglage de page d'accueil et répondre avec votre code d'identification une fois marqué [Terminé]&#xA;Déjà débloqué dans cette version.</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.10">Condition de déblocage d'origine : se connecter avec un compte Microsoft officiel pour soutenir le jeu officiel ! (déjà débloqué dans cette version)</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.11">Condition de déblocage d'origine : clic droit pour ouvrir l'entrée du puzzle (déjà débloqué dans cette version)</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.12">Pommier comique, fruits comiques ; sous l'arbre comique, toi et moi. Le jour comique, on s'amuse, que de joie !</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.13">Voilà le fameux chanceux de la légende</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.14">Condition de déblocage d'origine : débloquer cinq thèmes cachés (déjà débloqué dans cette version)</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Hue">Teinte</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Delta">Dégradé de teinte</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Sat">Saturation</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Light">Luminosité</sys:String>
+
 </ResourceDictionary>

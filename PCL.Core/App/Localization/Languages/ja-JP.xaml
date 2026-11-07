@@ -22,4 +22,54 @@
     <sys:String x:Key="Application.EnvironmentWarning.TempFolder">- PCL CE は一時ディレクトリで実行中です。PCL CE をアーカイブから展開してからご使用ください。そうしないと、ゲームのセーブデータや設定が失われる可能性があります</sys:String>
     <sys:String x:Key="Application.EnvironmentWarning.Title">環境警報</sys:String>
     <sys:String x:Key="Application.EnvironmentWarning.WindowsVersion">- Windows 版本は推奨要件を満たしておらず、少なくともWindows 10 1809が推奨されており、Windowsシステムのアップグレードを検討することをお勧めします</sys:String>
+
+    <!-- Setup.Ui.Theme -->
+
+    <sys:String x:Key="Setup.Ui.Theme.Mode">配色モード</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.System">テーマシステム</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.System.CE">PCL-CE 版</sys:String>
+    <sys:String x:Key="Setup.Ui.Theme.System.Classic">PCL オリジナル</sys:String>
+
+    <!-- Setup.Ui.ClassicTheme -->
+
+    <sys:String x:Key="Setup.Ui.ClassicTheme.LightHint">クラシックテーマはライト配色のみです。有効にすると一時的にライトモードへ切り替わりますが、ダークモードの設定は変更されません。クラシックテーマをオフにすると元の配色モードに戻ります。</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Theme">テーマ</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.Hidden">隠しテーマ</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Row.BigHidden">大・隠しテーマ</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.0">トトロブルー</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.1">スウィートライムシアン</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.2">グラスグリーン</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.3">パイナップルイエロー</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.4">オークブラウン</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.5">ミスティックブラック</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.6">アイアンピンク</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.7">ミスティックパープル</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.8">オータムゴールド</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.9">アクティブオレンジ</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.10">ディレイレッド</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.11">ギークブルー</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.12">コミカルカラー</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.13">ラッキーカラー</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.14">カスタム</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.42">42</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.43">ブラインディングホワイト</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Name.44">トゥルーコミカルカラー</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.42">スターリーブルー</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.43">明るすぎて色がほとんど見えない</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.44">更新のたびに配色がランダムに変わります。点滅にご注意ください。</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.5">灰色は嘘</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.6">99回の再会の喜び</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.7">072 101 108 112 032 068 101 118 032 048 046 052 046 052</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.8">原作の解放条件：累計支援額が ¥23.33 に達した後、Afdian で【ポテト {identify}】を送信（このバージョンでは解放済み）</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.9">原作の解放条件：&#xA;・バグを報告し、[完了] とマークされた後に識別コードを返信（右クリックでフィードバックページを開く）&#xA;・Pull Request またはホームページプリセットを提出し、[完了] とマークされた後に識別コードを返信&#xA;このバージョンでは解放済みです。</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.10">原作の解放条件：正規の Microsoft アカウントでログインして公式ゲームを支援する（このバージョンでは解放済み）</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.11">原作の解放条件：右クリックでパズル入口を開く（このバージョンでは解放済み）</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.12">コミカルな木にコミカルな実、コミカルな木の下にあなたと私。コミカルの日に騒ごう、楽しさは尽きない</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.13">これが伝説のラッキーな人か</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Tooltip.14">原作の解放条件：隠しテーマを5つ解放する（このバージョンでは解放済み）</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Hue">色相</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Delta">色相グラデーション</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Sat">彩度</sys:String>
+    <sys:String x:Key="Setup.Ui.ClassicTheme.Light">明度</sys:String>
+
 </ResourceDictionary>
